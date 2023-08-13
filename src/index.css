@@ -11,8 +11,3 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
-#root, .webchat_demo__container {
-  height: 100%;
-}
-
