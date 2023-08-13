@@ -1,3 +1,5 @@
+import { FluentProvider, webLightTheme } from "@fluentui/react-components";
+
 import { HeroBanner } from "./components/Banner";
 import { RaceDescription } from "./components/Description";
 import { RaceDetails } from "./components/Details";
@@ -6,13 +8,15 @@ import { Rules } from "./components/Rules";
 
 function App() {
   return (
-    <div>
-      <HeroBanner />
-      <RaceDescription />
-      <RaceDetails />
-      <Rules />
-      <Registration />
-    </div>
+    <FluentProvider theme={webLightTheme}>
+      <div>
+        <HeroBanner />
+        <RaceDescription />
+        <RaceDetails />
+        <Rules />
+        <Registration />
+      </div>
+    </FluentProvider>
   );
 }
 

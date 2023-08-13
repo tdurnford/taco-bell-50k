@@ -1,102 +1,172 @@
 import { FormEventHandler, useCallback, useState } from "react";
+import { Field, Input, InputProps, Button } from "@fluentui/react-components";
+import { produce } from "immer";
+
+type FormData = {
+  firstName: string;
+  lastName: string;
+  age: string;
+  email: string;
+  phoneNumber: string;
+  additionalDetails: string;
+};
 
 export const Registration = () => {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [age, setAge] = useState("");
-  const [email, setEmail] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
-  const [additionalDetails, setAdditionalDetails] = useState("");
+  const [formData, setFormData] = useState<FormData>({
+    firstName: "",
+    lastName: "",
+    age: "0",
+    email: "",
+    phoneNumber: "",
+    additionalDetails: "",
+  });
 
   const handleSubmit = useCallback<FormEventHandler<HTMLFormElement>>(
     (event) => {
       event.preventDefault();
 
-      // Form validation and submission logic goes here
+      console.log("Sending email  with form data:", formData);
 
-      // Simulating sending email
-      const formData = {
-        firstName,
-        lastName,
-        age,
-        email,
-        phoneNumber,
-        additionalDetails,
-      };
-      console.log(
-        "Sending email to tjdford@gmail.com with form data:",
-        formData
-      );
-
-      // Resetting form fields
-      setFirstName("");
-      setLastName("");
-      setAge("");
-      setEmail("");
-      setPhoneNumber("");
-      setAdditionalDetails("");
+      setFormData({
+        firstName: "",
+        lastName: "",
+        age: "0",
+        email: "",
+        phoneNumber: "",
+        additionalDetails: "",
+      });
     },
-    [additionalDetails, age, email, firstName, lastName, phoneNumber]
+    [formData]
   );
+
+  const handleFirstNameChange = useCallback<
+    NonNullable<InputProps["onChange"]>
+  >((_, { value }) => {
+    setFormData((currentData) =>
+      produce(currentData, (draft) => {
+        draft.firstName = value;
+      })
+    );
+  }, []);
+
+  const handleLastNameChange = useCallback<NonNullable<InputProps["onChange"]>>(
+    (_, { value }) => {
+      setFormData((currentData) =>
+        produce(currentData, (draft) => {
+          draft.lastName = value;
+        })
+      );
+    },
+    []
+  );
+
+  const handleAgeChange = useCallback<NonNullable<InputProps["onChange"]>>(
+    (_, { value }) => {
+      setFormData((currentData) =>
+        produce(currentData, (draft) => {
+          draft.age = value;
+        })
+      );
+    },
+    []
+  );
+
+  const handleEmailChange = useCallback<NonNullable<InputProps["onChange"]>>(
+    (_, { value }) => {
+      setFormData((currentData) =>
+        produce(currentData, (draft) => {
+          draft.email = value;
+        })
+      );
+    },
+    []
+  );
+
+  const handlePhoneNumberChange = useCallback<
+    NonNullable<InputProps["onChange"]>
+  >((_, { value }) => {
+    setFormData((currentData) =>
+      produce(currentData, (draft) => {
+        draft.phoneNumber = value;
+      })
+    );
+  }, []);
+
+  const handleAdditionalDetailsChange = useCallback<
+    NonNullable<InputProps["onChange"]>
+  >((_, { value }) => {
+    setFormData((currentData) =>
+      produce(currentData, (draft) => {
+        draft.additionalDetails = value;
+      })
+    );
+  }, []);
 
   return (
     <form className="registration-form" onSubmit={handleSubmit}>
       <h2>Register for the Race</h2>
       <div className="form-group">
-        <label>First Name</label>
-        <input
-          type="text"
-          value={firstName}
-          onChange={(e) => setFirstName(e.target.value)}
-          required
-        />
+        <Field label="First Name">
+          <Input
+            type="text"
+            value={formData.firstName}
+            onChange={handleFirstNameChange}
+            required
+          />
+        </Field>
       </div>
       <div className="form-group">
-        <label>Last Name</label>
-        <input
-          type="text"
-          value={lastName}
-          onChange={(e) => setLastName(e.target.value)}
-          required
-        />
+        <Field label="Last Name">
+          <Input
+            type="text"
+            value={formData.lastName}
+            onChange={handleLastNameChange}
+            required
+          />
+        </Field>
       </div>
       <div className="form-group">
-        <label>Age</label>
-        <input
-          type="number"
-          value={age}
-          onChange={(e) => setAge(e.target.value)}
-          required
-        />
+        <Field label="Age">
+          <Input
+            type="number"
+            value={formData.age.toString()}
+            onChange={handleAgeChange}
+            required
+          />
+        </Field>
       </div>
       <div className="form-group">
-        <label>Email</label>
-        <input
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
+        <Field label="Email">
+          <Input
+            type="email"
+            value={formData.email}
+            onChange={handleEmailChange}
+            required
+          />
+        </Field>
       </div>
       <div className="form-group">
-        <label>Phone Number</label>
-        <input
-          type="tel"
-          pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
-          value={phoneNumber}
-          onChange={(e) => setPhoneNumber(e.target.value)}
-          required
-        />
-        <small>Format: 123-456-7890</small>
+        <Field label="Phone Number">
+          <Input
+            type="tel"
+            value={formData.phoneNumber}
+            onChange={handlePhoneNumberChange}
+            required
+          />
+        </Field>
       </div>
       <div className="form-group">
-        <label>Additional Details</label>
-        <textarea
-          value={additionalDetails}
-          onChange={(e) => setAdditionalDetails(e.target.value)}
-        ></textarea>
+        <Field label="Additional Details">
+          <Input
+            multiple
+            value={formData.additionalDetails}
+            onChange={handleAdditionalDetailsChange}
+          />
+        </Field>
       </div>
-      <button type="submit">Submit</button>
+      <Button appearance="primary" type="submit">
+        Submit
+      </Button>
     </form>
   );
 };
