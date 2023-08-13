@@ -1,8 +1,8 @@
 {
-  "name": "webchat-demo",
+  "name": "taco-bell-50k",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://tdurnford.github.io/webchat-demo/",
+  "homepage": "https://tdurnford.github.io/taco-bell-50k/",
   "dependencies": {
     "@fluentui/react-components": "^9.28.1",
     "@testing-library/jest-dom": "^5.16.2",
