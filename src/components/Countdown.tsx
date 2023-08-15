@@ -12,8 +12,9 @@ const useStyles = makeStyles({
   content: {
     maxWidth: "400px",
     display: "flex",
-    justifyContent: "center",
+    justifyContent: "space-between",
     alignItems: "center",
+    flexGrow: 1,
   },
   countdown: {
     backgroundColor: tokens.colorBrandBackground,
@@ -21,7 +22,9 @@ const useStyles = makeStyles({
     fontSize: "24px",
     fontWeight: "bold",
     lineHeight: "1.2",
-    flexGrow: 1,
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
     ...shorthands.padding("20px"),
   },
   item: {
