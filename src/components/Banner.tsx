@@ -19,7 +19,6 @@ const useStyles = makeStyles({
 
     "@media screen and (max-width: 600px)": {
       backgroundPositionX: "calc(100% + 100px)",
-      justifyContent: "flex-end",
     },
     "& h1": {
       fontSize: "40px",
