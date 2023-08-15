@@ -12,6 +12,7 @@ import { RaceDescription } from "./components/Description";
 import { RaceDetails } from "./components/Details";
 import { Registration } from "./components/Register";
 import { Rules } from "./components/Rules";
+import { Countdown } from "./components/Countdown";
 
 const brandVariants: BrandVariants = {
   10: "#050205",
@@ -51,6 +52,7 @@ function App() {
     <FluentProvider theme={lightTheme}>
       <div>
         <HeroBanner />
+        <Countdown />
         <div className={classes.content}>
           <RaceDescription />
           <RaceDetails />
