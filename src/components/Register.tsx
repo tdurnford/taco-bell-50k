@@ -1,6 +1,18 @@
 import { FormEventHandler, useCallback, useState } from "react";
-import { Field, Input, InputProps, Button } from "@fluentui/react-components";
+import {
+  Field,
+  Input,
+  InputProps,
+  Button,
+  makeStyles,
+} from "@fluentui/react-components";
 import { produce } from "immer";
+
+const useStyles = makeStyles({
+  registrationForm: {
+    marginBottom: "12px",
+  },
+});
 
 type FormData = {
   firstName: string;
@@ -12,6 +24,7 @@ type FormData = {
 };
 
 export const Registration = () => {
+  const classes = useStyles();
   const [formData, setFormData] = useState<FormData>({
     firstName: "",
     lastName: "",
@@ -105,57 +118,42 @@ export const Registration = () => {
   return (
     <form className="registration-form" onSubmit={handleSubmit}>
       <h2>Register for the Race</h2>
-      <div className="form-group">
-        <Field label="First Name">
+      <div className={classes.registrationForm}>
+        <Field required label="First Name">
           <Input
             type="text"
             value={formData.firstName}
             onChange={handleFirstNameChange}
-            required
           />
         </Field>
-      </div>
-      <div className="form-group">
-        <Field label="Last Name">
+        <Field required label="Last Name">
           <Input
             type="text"
             value={formData.lastName}
             onChange={handleLastNameChange}
-            required
           />
         </Field>
-      </div>
-      <div className="form-group">
-        <Field label="Age">
+        <Field required label="Age">
           <Input
             type="number"
             value={formData.age.toString()}
             onChange={handleAgeChange}
-            required
           />
         </Field>
-      </div>
-      <div className="form-group">
-        <Field label="Email">
+        <Field required label="Email">
           <Input
             type="email"
             value={formData.email}
             onChange={handleEmailChange}
-            required
           />
         </Field>
-      </div>
-      <div className="form-group">
-        <Field label="Phone Number">
+        <Field required label="Phone Number">
           <Input
             type="tel"
             value={formData.phoneNumber}
             onChange={handlePhoneNumberChange}
-            required
           />
         </Field>
-      </div>
-      <div className="form-group">
         <Field label="Additional Details">
           <Input
             multiple
