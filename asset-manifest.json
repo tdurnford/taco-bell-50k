@@ -1,15 +1,16 @@
 {
   "files": {
     "main.css": "/taco-bell-50k/static/css/main.eee18692.css",
-    "main.js": "/taco-bell-50k/static/js/main.0c6effd6.js",
+    "main.js": "/taco-bell-50k/static/js/main.90a4cd5b.js",
     "static/js/787.fe419a38.chunk.js": "/taco-bell-50k/static/js/787.fe419a38.chunk.js",
+    "static/media/hero-banner.png": "/taco-bell-50k/static/media/hero-banner.ed17622f21647ceb3d5a.png",
     "index.html": "/taco-bell-50k/index.html",
     "main.eee18692.css.map": "/taco-bell-50k/static/css/main.eee18692.css.map",
-    "main.0c6effd6.js.map": "/taco-bell-50k/static/js/main.0c6effd6.js.map",
+    "main.90a4cd5b.js.map": "/taco-bell-50k/static/js/main.90a4cd5b.js.map",
     "787.fe419a38.chunk.js.map": "/taco-bell-50k/static/js/787.fe419a38.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.eee18692.css",
-    "static/js/main.0c6effd6.js"
+    "static/js/main.90a4cd5b.js"
   ]
 }
