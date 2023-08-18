@@ -40,45 +40,44 @@ export const Registration = () => {
     additionalDetails: "",
   });
 
-  const submit = useSubmit<FormData>("xpzgdavr");
+  const submit = useSubmit<FormData>("xpzgdavr", {
+    onError: () => {
+      dispatchToast(
+        <Toast>
+          <ToastTitle>Something went wrong!</ToastTitle>
+        </Toast>,
+        {
+          intent: "error",
+        }
+      );
+    },
+    onSuccess: () => {
+      setFormData({
+        firstName: "",
+        lastName: "",
+        bibNumber: "",
+        email: "",
+        phoneNumber: "",
+        additionalDetails: "",
+      });
+      dispatchToast(
+        <Toast>
+          <ToastTitle>You registered successfully!</ToastTitle>
+        </Toast>,
+        {
+          intent: "success",
+        }
+      );
+    },
+  });
 
   const handleSubmit = useCallback<FormEventHandler<HTMLFormElement>>(
     (event) => {
       event.preventDefault();
 
-      console.log("Sending email  with form data:", formData);
-
-      submit(formData)
-        .then(() => {
-          dispatchToast(
-            <Toast>
-              <ToastTitle>You registered successfully!</ToastTitle>
-            </Toast>,
-            {
-              intent: "success",
-            }
-          );
-          setFormData({
-            firstName: "",
-            lastName: "",
-            bibNumber: "",
-            email: "",
-            phoneNumber: "",
-            additionalDetails: "",
-          });
-        })
-        .catch(() => {
-          dispatchToast(
-            <Toast>
-              <ToastTitle>Something went wrong!</ToastTitle>
-            </Toast>,
-            {
-              intent: "error",
-            }
-          );
-        });
+      submit(formData);
     },
-    [dispatchToast, formData, submit]
+    [formData, submit]
   );
 
   const handleFirstNameChange = useCallback<
