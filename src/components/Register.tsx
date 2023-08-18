@@ -5,8 +5,13 @@ import {
   InputProps,
   Button,
   makeStyles,
+  Toaster,
+  useToastController,
+  Toast,
+  ToastTitle,
 } from "@fluentui/react-components";
 import { produce } from "immer";
+import { useSubmit } from "@formspree/react";
 
 const useStyles = makeStyles({
   registrationForm: {
@@ -14,10 +19,18 @@ const useStyles = makeStyles({
   },
 });
 
+declare global {
+  namespace NodeJS {
+    interface ProcessEnv {
+      REACT_APP_SIMPLE_FORM_ID: string;
+    }
+  }
+}
+
 type FormData = {
   firstName: string;
   lastName: string;
-  age: string;
+  bibNumber: string;
   email: string;
   phoneNumber: string;
   additionalDetails: string;
@@ -25,14 +38,17 @@ type FormData = {
 
 export const Registration = () => {
   const classes = useStyles();
+  const { dispatchToast } = useToastController();
   const [formData, setFormData] = useState<FormData>({
     firstName: "",
     lastName: "",
-    age: "0",
+    bibNumber: "",
     email: "",
     phoneNumber: "",
     additionalDetails: "",
   });
+
+  const submit = useSubmit<FormData>(process.env.REACT_APP_SIMPLE_FORM_ID);
 
   const handleSubmit = useCallback<FormEventHandler<HTMLFormElement>>(
     (event) => {
@@ -40,16 +56,37 @@ export const Registration = () => {
 
       console.log("Sending email  with form data:", formData);
 
-      setFormData({
-        firstName: "",
-        lastName: "",
-        age: "0",
-        email: "",
-        phoneNumber: "",
-        additionalDetails: "",
-      });
+      submit(formData)
+        .then(() => {
+          dispatchToast(
+            <Toast>
+              <ToastTitle>You registered successfully!</ToastTitle>
+            </Toast>,
+            {
+              intent: "success",
+            }
+          );
+          setFormData({
+            firstName: "",
+            lastName: "",
+            bibNumber: "",
+            email: "",
+            phoneNumber: "",
+            additionalDetails: "",
+          });
+        })
+        .catch(() => {
+          dispatchToast(
+            <Toast>
+              <ToastTitle>Something went wrong!</ToastTitle>
+            </Toast>,
+            {
+              intent: "error",
+            }
+          );
+        });
     },
-    [formData]
+    [dispatchToast, formData, submit]
   );
 
   const handleFirstNameChange = useCallback<
@@ -77,7 +114,10 @@ export const Registration = () => {
     (_, { value }) => {
       setFormData((currentData) =>
         produce(currentData, (draft) => {
-          draft.age = value;
+          if (isNaN(Number(value))) {
+            return;
+          }
+          draft.bibNumber = value;
         })
       );
     },
@@ -133,12 +173,8 @@ export const Registration = () => {
             onChange={handleLastNameChange}
           />
         </Field>
-        <Field required label="Age">
-          <Input
-            type="number"
-            value={formData.age.toString()}
-            onChange={handleAgeChange}
-          />
+        <Field required label="Bib number">
+          <Input value={formData.bibNumber} onChange={handleAgeChange} />
         </Field>
         <Field required label="Email">
           <Input
@@ -154,7 +190,7 @@ export const Registration = () => {
             onChange={handlePhoneNumberChange}
           />
         </Field>
-        <Field label="Additional Details">
+        <Field label="Tell us your inspirational food or stupidity stories!">
           <Input
             multiple
             value={formData.additionalDetails}
@@ -165,6 +201,7 @@ export const Registration = () => {
       <Button appearance="primary" type="submit">
         Submit
       </Button>
+      <Toaster />
     </form>
   );
 };
