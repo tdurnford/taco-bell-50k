@@ -9,6 +9,8 @@ import {
   useToastController,
   Toast,
   ToastTitle,
+  Textarea,
+  TextareaProps,
 } from "@fluentui/react-components";
 import { produce } from "immer";
 import { useSubmit } from "@formspree/react";
@@ -137,7 +139,7 @@ export const Registration = () => {
   }, []);
 
   const handleAdditionalDetailsChange = useCallback<
-    NonNullable<InputProps["onChange"]>
+    NonNullable<TextareaProps["onChange"]>
   >((_, { value }) => {
     setFormData((currentData) =>
       produce(currentData, (draft) => {
@@ -182,8 +184,7 @@ export const Registration = () => {
           />
         </Field>
         <Field label="Tell us your inspirational food or stupidity stories!">
-          <Input
-            multiple
+          <Textarea
             value={formData.additionalDetails}
             onChange={handleAdditionalDetailsChange}
           />
