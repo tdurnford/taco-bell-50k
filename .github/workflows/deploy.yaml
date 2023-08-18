@@ -43,9 +43,6 @@ jobs:
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
 
-    env:
-      REACT_APP_SIMPLE_FORM_ID: ${{ secrets.REACT_APP_SIMPLE_FORM_ID }}
-
     steps:
       - name: Download artifact
         uses: actions/download-artifact@v2

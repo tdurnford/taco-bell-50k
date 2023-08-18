@@ -19,14 +19,6 @@ const useStyles = makeStyles({
   },
 });
 
-declare global {
-  namespace NodeJS {
-    interface ProcessEnv {
-      REACT_APP_SIMPLE_FORM_ID: string;
-    }
-  }
-}
-
 type FormData = {
   firstName: string;
   lastName: string;
@@ -48,7 +40,7 @@ export const Registration = () => {
     additionalDetails: "",
   });
 
-  const submit = useSubmit<FormData>(process.env.REACT_APP_SIMPLE_FORM_ID);
+  const submit = useSubmit<FormData>("xpzgdavr");
 
   const handleSubmit = useCallback<FormEventHandler<HTMLFormElement>>(
     (event) => {
