@@ -153,18 +153,10 @@ export const Registration = () => {
       <h2>Register for the Race</h2>
       <div className={classes.registrationForm}>
         <Field required label="First Name">
-          <Input
-            type="text"
-            value={formData.firstName}
-            onChange={handleFirstNameChange}
-          />
+          <Input value={formData.firstName} onChange={handleFirstNameChange} />
         </Field>
         <Field required label="Last Name">
-          <Input
-            type="text"
-            value={formData.lastName}
-            onChange={handleLastNameChange}
-          />
+          <Input value={formData.lastName} onChange={handleLastNameChange} />
         </Field>
         <Field required label="Bib number">
           <Input value={formData.bibNumber} onChange={handleAgeChange} />
