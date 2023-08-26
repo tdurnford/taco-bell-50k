@@ -13,6 +13,7 @@ import { RaceDetails } from "./components/Details";
 import { Registration } from "./components/Register";
 import { Rules } from "./components/Rules";
 import { Countdown } from "./components/Countdown";
+import { Videos } from "./components/Videos";
 
 const brandVariants: BrandVariants = {
   10: "#050205",
@@ -57,6 +58,7 @@ function App() {
           <RaceDescription />
           <RaceDetails />
           <Rules />
+          <Videos />
           <Registration />
         </div>
       </div>
