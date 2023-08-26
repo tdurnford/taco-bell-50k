@@ -61,7 +61,9 @@ export const Videos: FC = () => {
 
           <CardHeader
             header={
-              <Text weight="semibold">INTERNATIONAL TACO BELL 50k 2019</Text>
+              <Text weight="semibold">
+                2022 TACO BELL INTERNATIONAL 50K DEUCE WEEKEND
+              </Text>
             }
           />
         </Card>
