@@ -55,14 +55,14 @@ export const RaceDetails = () => {
             </p>
           </Link>
         </div>
-        <div className="detail">
+        {/* <div className="detail">
           <h3>The Course</h3>
           <iframe
             title="TB50k2023 | 31.5 mi Running Route on Strava"
             className={classes.iframe}
             src="https://strava-embeds.com/route/3141754116069360858?fullWidth=true&hideElevation=true#ns=c94bd402-be4b-472d-b08b-f30264d430cb&hostOrigin=https%3A%2F%2Fwww.strava.com&hostPath=%2Froutes%2F3141754116069360858&hostTitle=TB50k2023+%7C+31.5+mi+Running+Route+on+Strava"
           ></iframe>
-        </div>
+        </div> */}
       </div>
     </section>
   );
