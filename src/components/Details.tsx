@@ -1,4 +1,5 @@
-import { makeStyles, shorthands } from "@fluentui/react-components";
+import { Link, makeStyles, shorthands } from "@fluentui/react-components";
+import { useCallback } from "react";
 
 const useStyles = makeStyles({
   iframe: {
@@ -11,8 +12,27 @@ const useStyles = makeStyles({
   },
 });
 
+const address = "447 S Broadway, Denver, CO 80209";
+
 export const RaceDetails = () => {
   const classes = useStyles();
+
+  const handleClick = useCallback(() => {
+    const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+      address
+    )}`;
+    const appleMapsUrl = `http://maps.apple.com/?q=${encodeURIComponent(
+      address
+    )}`;
+
+    const isAppleDevice = /iPad|iPhone|iPod/.test(navigator.userAgent);
+    window.open(
+      isAppleDevice ? appleMapsUrl : googleMapsUrl,
+      "_blank",
+      "noopener noreferrer"
+    );
+  }, []);
+
   return (
     <section className="race-details">
       <h2>Race Details</h2>
@@ -27,8 +47,13 @@ export const RaceDetails = () => {
         </div>
         <div className="detail">
           <h3>Location</h3>
-          <p>447 S Broadway</p>
-          <p>Denver, CO 80209</p>
+          <Link as="button" onClick={handleClick}>
+            <p>
+              447 S Broadway
+              <br />
+              Denver, CO 80209
+            </p>
+          </Link>
         </div>
         <div className="detail">
           <h3>The Course</h3>
