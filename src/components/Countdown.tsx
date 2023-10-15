@@ -43,7 +43,7 @@ export const Countdown = () => {
   const classes = useStyles();
   const [now, setNow] = useState(DateTime.now());
 
-  const interval = Interval.fromDateTimes(now, now > start ? start : now);
+  const interval = Interval.fromDateTimes(now, now < start ? start : now);
 
   const days = interval.length("days");
   const hours = interval.length("hours") % 24;
