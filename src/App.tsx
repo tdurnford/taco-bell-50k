@@ -10,9 +10,9 @@ import {
 import { HeroBanner } from "./components/Banner";
 import { RaceDescription } from "./components/Description";
 import { RaceDetails } from "./components/Details";
-import { Registration } from "./components/Register";
 import { Rules } from "./components/Rules";
 import { Countdown } from "./components/Countdown";
+import { NewsLetter } from "./components/NewsLetter";
 
 const brandVariants: BrandVariants = {
   10: "#050205",
@@ -39,6 +39,7 @@ const lightTheme: Theme = {
 
 const useStyles = makeStyles({
   content: {
+    maxWidth: "800px",
     ...shorthands.padding("48px"),
     "@media screen and (max-width: 600px)": {
       ...shorthands.padding("48px", "20px"),
@@ -58,7 +59,8 @@ function App() {
           <RaceDetails />
           <Rules />
           {/* <Videos /> */}
-          <Registration disabled={true} />
+          {/* <Registration disabled={true} /> */}
+          <NewsLetter />
         </div>
       </div>
     </FluentProvider>
