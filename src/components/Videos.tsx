@@ -23,6 +23,7 @@ const useStyles = makeStyles({
 
 export const Videos: FC = () => {
   const classes = useStyles();
+
   return (
     <div>
       <h2>Historical archives</h2>

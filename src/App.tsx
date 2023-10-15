@@ -58,8 +58,8 @@ function App() {
           <RaceDescription />
           <RaceDetails />
           <Rules />
-          <Videos />
-          <Registration />
+          {/* <Videos /> */}
+          <Registration disabled={true} />
         </div>
       </div>
     </FluentProvider>

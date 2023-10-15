@@ -1,4 +1,4 @@
-import { FormEventHandler, useCallback, useState } from "react";
+import { FormEventHandler, type FC, useCallback, useState } from "react";
 import {
   Field,
   Input,
@@ -30,7 +30,11 @@ type FormData = {
   additionalDetails: string;
 };
 
-export const Registration = () => {
+type Props = {
+  disabled?: boolean;
+};
+
+export const Registration: FC<Props> = ({ disabled }) => {
   const classes = useStyles();
   const { dispatchToast } = useToastController();
   const [formData, setFormData] = useState<FormData>({
@@ -151,18 +155,34 @@ export const Registration = () => {
   return (
     <form className="registration-form" onSubmit={handleSubmit}>
       <h2>Register for the Race</h2>
+      {disabled ? (
+        <p>Registration is currently closed. Please check back later.</p>
+      ) : null}
       <div className={classes.registrationForm}>
         <Field required label="First Name">
-          <Input value={formData.firstName} onChange={handleFirstNameChange} />
+          <Input
+            disabled={disabled}
+            value={formData.firstName}
+            onChange={handleFirstNameChange}
+          />
         </Field>
         <Field required label="Last Name">
-          <Input value={formData.lastName} onChange={handleLastNameChange} />
+          <Input
+            disabled={disabled}
+            value={formData.lastName}
+            onChange={handleLastNameChange}
+          />
         </Field>
         <Field required label="Bib number">
-          <Input value={formData.bibNumber} onChange={handleAgeChange} />
+          <Input
+            disabled={disabled}
+            value={formData.bibNumber}
+            onChange={handleAgeChange}
+          />
         </Field>
         <Field required label="Email">
           <Input
+            disabled={disabled}
             type="email"
             value={formData.email}
             onChange={handleEmailChange}
@@ -170,6 +190,7 @@ export const Registration = () => {
         </Field>
         <Field required label="Phone Number">
           <Input
+            disabled={disabled}
             type="tel"
             value={formData.phoneNumber}
             onChange={handlePhoneNumberChange}
@@ -177,12 +198,13 @@ export const Registration = () => {
         </Field>
         <Field label="Tell us your inspirational food or stupidity stories!">
           <Textarea
+            disabled={disabled}
             value={formData.additionalDetails}
             onChange={handleAdditionalDetailsChange}
           />
         </Field>
       </div>
-      <Button appearance="primary" type="submit">
+      <Button disabled={disabled} appearance="primary" type="submit">
         Submit
       </Button>
       <Toaster />
