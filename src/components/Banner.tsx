@@ -15,6 +15,7 @@ const useStyles = makeStyles({
     alignItems: "center",
     color: "white",
     textAlign: "center",
+    width: "100vw",
     ...shorthands.padding("20px"),
 
     "@media screen and (max-width: 600px)": {

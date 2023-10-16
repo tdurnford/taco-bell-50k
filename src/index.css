@@ -11,3 +11,14 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+@media (orientation: portrait) {
+  html {
+    font-size: 16px;
+  }
+}
+@media (orientation: landscape) {
+  html {
+    font-size: 20px;
+  }
+}
