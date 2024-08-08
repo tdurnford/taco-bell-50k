@@ -46,7 +46,7 @@ export const Registration: FC<Props> = ({ disabled }) => {
     additionalDetails: "",
   });
 
-  const submit = useSubmit<FormData>("xpzgdavr", {
+  const submit = useSubmit<FormData>("myzgjwkp", {
     onError: () => {
       dispatchToast(
         <Toast>
