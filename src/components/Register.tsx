@@ -234,7 +234,7 @@ export const Registration: FC<Props> = ({ disabled }) => {
           <Input
             disabled={disabled}
             value={formData.bibName}
-            onChange={handleBibNumberChange}
+            onChange={handleBibNameChange}
           />
         </Field>
         <Field required label="Email">
