@@ -25,9 +25,12 @@ type FormData = {
   firstName: string;
   lastName: string;
   bibNumber: string;
+  bibName: string;
   email: string;
+  address: string;
+  emergencyContact: string;
   phoneNumber: string;
-  additionalDetails: string;
+  comments: string;
 };
 
 type Props = {
@@ -41,9 +44,12 @@ export const Registration: FC<Props> = ({ disabled }) => {
     firstName: "",
     lastName: "",
     bibNumber: "",
+    bibName: "",
     email: "",
+    address: "",
+    emergencyContact: "",
     phoneNumber: "",
-    additionalDetails: "",
+    comments: "",
   });
 
   const submit = useSubmit<FormData>("myzgjwkp", {
@@ -62,9 +68,12 @@ export const Registration: FC<Props> = ({ disabled }) => {
         firstName: "",
         lastName: "",
         bibNumber: "",
+        bibName: "",
         email: "",
+        address: "",
+        emergencyContact: "",
         phoneNumber: "",
-        additionalDetails: "",
+        comments: "",
       });
       dispatchToast(
         <Toast>
@@ -107,7 +116,7 @@ export const Registration: FC<Props> = ({ disabled }) => {
     []
   );
 
-  const handleAgeChange = useCallback<NonNullable<InputProps["onChange"]>>(
+  const handleBibNumberChange = useCallback<NonNullable<InputProps["onChange"]>>(
     (_, { value }) => {
       setFormData((currentData) =>
         produce(currentData, (draft) => {
@@ -115,6 +124,20 @@ export const Registration: FC<Props> = ({ disabled }) => {
             return;
           }
           draft.bibNumber = value;
+        })
+      );
+    },
+    []
+  );
+
+  const handleBibNameChange = useCallback<NonNullable<InputProps["onChange"]>>(
+    (_, { value }) => {
+      setFormData((currentData) =>
+        produce(currentData, (draft) => {
+          if (isNaN(Number(value))) {
+            return;
+          }
+          draft.bibName = value;
         })
       );
     },
@@ -142,12 +165,32 @@ export const Registration: FC<Props> = ({ disabled }) => {
     );
   }, []);
 
-  const handleAdditionalDetailsChange = useCallback<
+  const handleCommentsChange = useCallback<
     NonNullable<TextareaProps["onChange"]>
   >((_, { value }) => {
     setFormData((currentData) =>
       produce(currentData, (draft) => {
-        draft.additionalDetails = value;
+        draft.comments = value;
+      })
+    );
+  }, []);
+
+  const handleAddressChange = useCallback<
+    NonNullable<InputProps["onChange"]>
+  >((_, { value }) => {
+    setFormData((currentData) =>
+      produce(currentData, (draft) => {
+        draft.address = value;
+      })
+    );
+  }, []);
+
+  const handleEmergencyContactChange = useCallback<
+    NonNullable<InputProps["onChange"]>
+  >((_, { value }) => {
+    setFormData((currentData) =>
+      produce(currentData, (draft) => {
+        draft.emergencyContact = value;
       })
     );
   }, []);
@@ -173,11 +216,25 @@ export const Registration: FC<Props> = ({ disabled }) => {
             onChange={handleLastNameChange}
           />
         </Field>
-        <Field required label="Bib number">
+        <Field required label="Address">
+          <Input
+            disabled={disabled}
+            value={formData.address}
+            onChange={handleAddressChange}
+          />
+        </Field>
+        <Field required label="Requested Bib Number">
           <Input
             disabled={disabled}
             value={formData.bibNumber}
-            onChange={handleAgeChange}
+            onChange={handleBibNumberChange}
+          />
+        </Field>
+        <Field required label="Name On Bib">
+          <Input
+            disabled={disabled}
+            value={formData.bibName}
+            onChange={handleBibNameChange}
           />
         </Field>
         <Field required label="Email">
@@ -196,13 +253,22 @@ export const Registration: FC<Props> = ({ disabled }) => {
             onChange={handlePhoneNumberChange}
           />
         </Field>
-        <Field label="Tell us your inspirational food or stupidity stories!">
-          <Textarea
+        <Field required label="Emergency Contact (Name And Phone Number)">
+          <Input
             disabled={disabled}
-            value={formData.additionalDetails}
-            onChange={handleAdditionalDetailsChange}
+            value={formData.emergencyContact}
+            onChange={handleEmergencyContactChange}
           />
         </Field>
+        
+        <Field label="Comments">
+          <Textarea
+            disabled={disabled}
+            value={formData.comments}
+            onChange={handleCommentsChange}
+          />
+        </Field>
+        
       </div>
       <Button disabled={disabled} appearance="primary" type="submit">
         Submit
