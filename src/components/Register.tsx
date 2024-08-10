@@ -134,9 +134,7 @@ export const Registration: FC<Props> = ({ disabled }) => {
     (_, { value }) => {
       setFormData((currentData) =>
         produce(currentData, (draft) => {
-          if (isNaN(Number(value))) {
-            return;
-          }
+         
           draft.bibName = value;
         })
       );
@@ -230,7 +228,7 @@ export const Registration: FC<Props> = ({ disabled }) => {
             onChange={handleBibNumberChange}
           />
         </Field>
-        <Field required label="Name On Bib">
+        <Field required label="What name do you want on your bib?">
           <Input
             disabled={disabled}
             value={formData.bibName}
