@@ -199,6 +199,15 @@ export const Registration: FC<Props> = ({ disabled }) => {
       {disabled ? (
         <p>Registration is currently closed. Please check back later.</p>
       ) : null}
+      <h3>Acknowledgment and Assumption of Risk</h3>
+        <p> I acknowledge that my participation in the Taco Bell 50k involves inherent risks, including, but not limited to, physical injury, illness, death, property damage, 
+         and other dangers that may occur. I understand these risks, whether they are known or unknown, anticipated or unanticipated, and I voluntarily choose to participate in the event.
+         </p>
+         <h3>Waiver and Release of Liability</h3>
+         <p>
+         In consideration of being allowed to participate in Taco Bell 50k, I hereby release, discharge, and hold harmless the Taco Bell 50k organizers, its officers, directors, employees, volunteers, 
+         agents, and any other associated parties (collectively, the "Released Parties") from any and all liabilities, claims, demands, or causes of action that I may hereafter have for injuries, 
+         damages, or losses arising out of or connected to my participation in the event, including, but not limited to, those caused by the negligence or fault of the Released Parties.</p>
       <div className={classes.registrationForm}>
         <Field required label="First Name">
           <Input
