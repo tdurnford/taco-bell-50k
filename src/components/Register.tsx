@@ -55,8 +55,29 @@ export const Registration: FC<Props> = ({ disabled }) => {
   const submit = useSubmit<FormData>("myzgjwkp", {
     onError: () => {
       dispatchToast(
-        <Toast>
-          <ToastTitle>Something went wrong!</ToastTitle>
+        <Toast
+        style={{
+          position: 'fixed',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          padding: '20px',
+          fontSize: '1.5rem',
+          maxWidth: '500px',
+          borderRadius: '10px',
+          backgroundColor: 'white',
+          boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.2)',
+          zIndex: 1000
+        }}
+        >
+          <ToastTitle
+            style={{
+              fontSize: '2rem',
+              fontWeight: 'bold'
+            }}
+          >
+            Something went wrong!
+          </ToastTitle>
         </Toast>,
         {
           intent: "error",
@@ -76,8 +97,29 @@ export const Registration: FC<Props> = ({ disabled }) => {
         comments: "",
       });
       dispatchToast(
-        <Toast>
-          <ToastTitle>You registered successfully!</ToastTitle>
+        <Toast
+          style={{
+            position: 'fixed',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            padding: '20px',
+            fontSize: '1.5rem',
+            maxWidth: '500px',
+            borderRadius: '10px',
+            backgroundColor: 'white',
+            boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.2)',
+            zIndex: 1000
+          }}
+        >
+          <ToastTitle
+            style={{
+              fontSize: '2rem',
+              fontWeight: 'bold'
+            }}
+          >
+            You registered successfully!
+          </ToastTitle>
         </Toast>,
         {
           intent: "success",

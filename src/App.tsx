@@ -12,7 +12,7 @@ import { RaceDescription } from "./components/Description";
 import { RaceDetails } from "./components/Details";
 import { Rules } from "./components/Rules";
 import { Countdown } from "./components/Countdown";
-import { NewsLetter } from "./components/NewsLetter";
+//import { NewsLetter } from "./components/NewsLetter";
 import { Registration } from "./components/Register";
 
 const brandVariants: BrandVariants = {
@@ -61,7 +61,6 @@ function App() {
           <Rules />
           {/* <Videos /> */}
           <Registration />
-          <NewsLetter />
         </div>
       </div>
     </FluentProvider>
