@@ -61,7 +61,6 @@ function App() {
           <Rules />
           {/* <Videos /> */}
           <Registration />
-          <NewsLetter />
         </div>
       </div>
     </FluentProvider>
