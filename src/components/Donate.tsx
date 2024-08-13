@@ -5,8 +5,7 @@ export const Donate = () => {
       <section className="Donate">
           <br></br>
         <h3>
-          Please consider donating to our official charity partner, <a href="//give.achillesinternational.org/campaign/achilles-denver/c384648" 
-          target="_blank" rel="noreferrer"> Achilles International Denver Chapter!</a> All proceeds go directly to disabled runners in the Denver area for race entry fees, running shoes, 
+          Please consider donating to our official charity partner,  Achilles International Denver Chapter! All proceeds go directly to disabled runners in the Denver area for race entry fees, running shoes, 
           and running-related equipment. So far, two blind runners are Taco Bell 50k Survivors!!
         </h3>
 
