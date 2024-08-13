@@ -1,4 +1,4 @@
-import logo from '../images/logo.png';
+
 
 export const Donate = () => {
     return (
