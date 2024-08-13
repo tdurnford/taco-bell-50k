@@ -10,7 +10,7 @@ export const Donate = () => {
           and running-related equipment. So far, two blind runners are Taco Bell 50k Survivors!!
         </h3>
 
-        <img src={logo} alt="Logo" style={{ width: '200px', height: '150px' }} />
+       
   
         <p>
             This event is not sponsored by or endorsed by Taco Bell Corp., so be cool.
