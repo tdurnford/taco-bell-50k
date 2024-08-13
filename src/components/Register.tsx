@@ -237,6 +237,7 @@ export const Registration: FC<Props> = ({ disabled }) => {
 
   return (
     <form className="registration-form" onSubmit={handleSubmit}>
+      <br></br>
       <h2>Register for the Race</h2>
       {disabled ? (
         <p>Registration is currently closed. Please check back later.</p>
