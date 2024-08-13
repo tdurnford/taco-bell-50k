@@ -324,5 +324,8 @@ export const Registration: FC<Props> = ({ disabled }) => {
       </Button>
       <Toaster />
     </form>
+    
   );
 };
+
+
