@@ -14,6 +14,7 @@ import { Rules } from "./components/Rules";
 import { Countdown } from "./components/Countdown";
 //import { NewsLetter } from "./components/NewsLetter";
 import { Registration } from "./components/Register";
+import { Donate } from "./components/Donate";
 
 const brandVariants: BrandVariants = {
   10: "#050205",
@@ -61,6 +62,7 @@ function App() {
           <Rules />
           {/* <Videos /> */}
           <Registration />
+          <Donate />
         </div>
       </div>
     </FluentProvider>
