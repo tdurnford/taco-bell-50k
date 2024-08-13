@@ -2,7 +2,7 @@
   "name": "taco-bell-50k",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://tdurnford.github.io/taco-bell-50k/",
+  "homepage": "http://tacobell50k.com",
   "dependencies": {
     "@fluentui/react-components": "^9.28.1",
     "@formspree/react": "^2.5.0",
