@@ -13,7 +13,6 @@ export const RaceDescription = () => {
         If you complete the challenge, you will be deemed a SURVIVOR, revered
         and heckled for life!
       </p>
-      <p><strong>Disclaimer: </strong>This event is not sponsored by or endorsed by Taco Bell Corporation, so be cool.</p>
       
     </section>
   );
