@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { DateTime, Interval } from "luxon";
 import { makeStyles, shorthands, tokens } from "@fluentui/react-components";
 
-const start = DateTime.local(2024, 10, 5, 7, 0, 0, { zone: "America/Denver" });
+const start = DateTime.local(2025, 10, 4, 7, 0, 0, { zone: "America/Denver" });
 
 const leadingZero = (value: number) => {
   return value < 10 ? `0${value}` : value;

@@ -1,7 +1,7 @@
 export const RaceDescription = () => {
   return (
     <section className="race-description">
-      <h2>The 7th edition of the International Taco Bell 50k Ultramarathon</h2>
+      <h2>The 8th edition of the International Taco Bell 50k Ultramarathon</h2>
       <p>
         It has been described as Urban Legend. More mysterious and barking
         spiders than the Barkley Marathons. The International Taco Bell 50k
