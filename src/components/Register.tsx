@@ -28,6 +28,7 @@ type FormData = {
   bibName: string;
   email: string;
   address: string;
+  cityStateZip: string;
   emergencyContact: string;
   phoneNumber: string;
   comments: string;
@@ -47,6 +48,7 @@ export const Registration: FC<Props> = ({ disabled }) => {
     bibName: "",
     email: "",
     address: "",
+    cityStateZip: "",
     emergencyContact: "",
     phoneNumber: "",
     comments: "",
@@ -92,6 +94,7 @@ export const Registration: FC<Props> = ({ disabled }) => {
         bibName: "",
         email: "",
         address: "",
+        cityStateZip: "",
         emergencyContact: "",
         phoneNumber: "",
         comments: "",
@@ -225,6 +228,16 @@ export const Registration: FC<Props> = ({ disabled }) => {
     );
   }, []);
 
+  const handleCityStateZipChange = useCallback<
+  NonNullable<InputProps["onChange"]>
+>((_, { value }) => {
+  setFormData((currentData) =>
+    produce(currentData, (draft) => {
+      draft.cityStateZip = value;
+    })
+  );
+}, []);
+
   const handleEmergencyContactChange = useCallback<
     NonNullable<InputProps["onChange"]>
   >((_, { value }) => {
@@ -271,6 +284,13 @@ export const Registration: FC<Props> = ({ disabled }) => {
             disabled={disabled}
             value={formData.address}
             onChange={handleAddressChange}
+          />
+        </Field>
+        <Field required label="City, State, Zipcode">
+          <Input
+            disabled={disabled}
+            value={formData.cityStateZip}
+            onChange={handleCityStateZipChange}
           />
         </Field>
         <Field required label="Requested Bib Number">
