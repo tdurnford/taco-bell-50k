@@ -1,71 +1,18 @@
-import {
-  BrandVariants,
-  FluentProvider,
-  Theme,
-  createLightTheme,
-  makeStyles,
-  shorthands,
-} from "@fluentui/react-components";
+/* Multi-page app via router */
+/* This was added to show a confirmation page with a donation link to Achilles to users when submitting registration info. */
+/* This can be expanded in the future. */ 
 
-import { HeroBanner } from "./components/Banner";
-import { RaceDescription } from "./components/Description";
-import { RaceDetails } from "./components/Details";
-import { Rules } from "./components/Rules";
-import { Countdown } from "./components/Countdown";
-//import { NewsLetter } from "./components/NewsLetter";
-import { Registration } from "./components/Register";
-import { Donate } from "./components/Donate";
-
-const brandVariants: BrandVariants = {
-  10: "#050205",
-  20: "#211125",
-  30: "#391741",
-  40: "#4D1B58",
-  50: "#621E71",
-  60: "#742685",
-  70: "#7F398F",
-  80: "#8B4A98",
-  90: "#965BA2",
-  100: "#A26BAB",
-  110: "#AD7CB5",
-  120: "#B88DBF",
-  130: "#C39EC8",
-  140: "#CEAFD2",
-  150: "#D9C0DC",
-  160: "#E3D1E6",
-};
-
-const lightTheme: Theme = {
-  ...createLightTheme(brandVariants),
-};
-
-const useStyles = makeStyles({
-  content: {
-    maxWidth: "800px",
-    ...shorthands.padding("48px"),
-    "@media screen and (max-width: 600px)": {
-      ...shorthands.padding("48px", "20px"),
-    },
-  },
-});
+/* Import outer and page components */
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Home from './pages/home';
 
 function App() {
-  const classes = useStyles();
   return (
-    <FluentProvider theme={lightTheme}>
-      <div>
-        <HeroBanner />
-        <Countdown />
-        <div className={classes.content}>
-          <RaceDescription />
-          <RaceDetails />
-          <Rules />
-          {/* <Videos /> */}
-          <Registration />
-          <Donate />
-        </div>
-      </div>
-    </FluentProvider>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
+      </Routes>
+    </Router>
   );
 }
 
