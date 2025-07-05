@@ -4,8 +4,8 @@
 
 /* Import outer and page components */
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Home from './pages/home';
-import Confirmation from './pages/confirmation';
+import Home from './pages/Home';
+import Confirmation from './pages/Confirmation';
 import NotFound from './pages/NotFound';
 
 // Create light theme for Fluent UI components
