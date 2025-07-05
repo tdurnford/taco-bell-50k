@@ -6,6 +6,7 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './pages/home';
 import Confirmation from './pages/confirmation';
+import NotFound from './pages/NotFound';
 
 // Create light theme for Fluent UI components
 // This is used on multiple pages, and thus is defined here
@@ -44,6 +45,8 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/confirmation" element={<Confirmation />} />
+        {/* Add a catch-all route for 404 Not Found */}
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>
   );
