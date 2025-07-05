@@ -22,12 +22,14 @@ const useStyles = makeStyles({
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
-    color: "white",
+    color: "#211125",
     textAlign: "center",
     ...shorthands.padding("20px"),
 
     "@media screen and (max-width: 600px)": {
       backgroundPositionX: "calc(100% + 100px)",
+      height: "60vh",
+      width: "100%"
     },
     "& h1": {
       fontSize: "5rem",
@@ -79,7 +81,7 @@ const NotFound = () => {
   return (
     <FluentProvider theme={lightTheme}>
       <div className={classes.heroBanner}>
-        <h1>Page Not Found</h1>
+        <h1>Not Found</h1>
       </div>
       <div className={classes.content}>
         <p>Sorry, the page you are looking for does not exist.</p>
