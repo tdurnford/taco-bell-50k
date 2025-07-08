@@ -6,6 +6,7 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import Confirmation from './pages/Confirmation';
+import Register from './pages/Register';
 import NotFound from './pages/NotFound';
 
 // Create light theme for Fluent UI components
@@ -15,6 +16,7 @@ import {
   Theme,
   createLightTheme,
 } from "@fluentui/react-components";
+import RegisterPage from './pages/Register';
 
 const brandVariants: BrandVariants = {
   10: "#050205",
@@ -45,6 +47,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/confirmation" element={<Confirmation />} />
+        <Route path="/register" element={<Register />} />
         {/* Add a catch-all route for 404 Not Found */}
         <Route path="*" element={<NotFound />} />
       </Routes>

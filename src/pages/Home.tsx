@@ -2,6 +2,7 @@ import {
   FluentProvider,
   makeStyles,
   shorthands,
+  Button,
 } from "@fluentui/react-components";
 
 import { HeroBanner } from "../components/Banner";
@@ -10,11 +11,12 @@ import { RaceDetails } from "../components/Details";
 import { Rules } from "../components/Rules";
 import { Countdown } from "../components/Countdown";
 //import { NewsLetter } from "../components/NewsLetter";
-import { Registration } from "../components/Register";
 import { Donate } from "../components/Donate";
 
 // Import light theme for Fluent UI components
 import { lightTheme } from "../App";
+// React Router to navigate to registration page
+import { useNavigate } from "react-router-dom";
 
 const useStyles = makeStyles({
   content: {
@@ -26,10 +28,25 @@ const useStyles = makeStyles({
       ...shorthands.padding("48px", "20px"),
     },
   },
+  registerButton: {
+    fontSize: "1.25rem",
+    padding: "12px 72px",
+    margin: "48px auto 8px auto",
+    display: "block",
+  },
 });
 
 function Home() {
+  // Hooks
   const classes = useStyles();
+  const navigate = useNavigate();
+
+  // Handlers
+  const handleGoToRegistration = () => {
+    navigate("/register", { preventScrollReset: false });
+  };
+
+  // Component
   return (
       <FluentProvider theme={lightTheme}>
         <div>
@@ -40,7 +57,7 @@ function Home() {
             <RaceDetails />
             <Rules />
             {/* <Videos /> */}
-            <Registration />
+            <Button onClick={handleGoToRegistration} appearance="primary" className={classes.registerButton}>Register</Button>
             <Donate />
           </div>
         </div>

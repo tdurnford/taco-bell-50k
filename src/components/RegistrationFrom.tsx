@@ -41,7 +41,7 @@ type Props = {
   disabled?: boolean;
 };
 
-export const Registration: FC<Props> = ({ disabled }) => {
+export const RegistrationForm: FC<Props> = ({ disabled }) => {
   const classes = useStyles();
   const navigate = useNavigate();
   const { dispatchToast } = useToastController();
