@@ -2,8 +2,11 @@
 /* This was added to show a confirmation page with a donation link to Achilles to users when submitting registration info. */
 /* This can be expanded in the future. */ 
 
-/* Import outer and page components */
+/* Import Router and page components */
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
+
 import Home from './pages/Home';
 import Confirmation from './pages/Confirmation';
 import Register from './pages/Register';
@@ -16,7 +19,6 @@ import {
   Theme,
   createLightTheme,
 } from "@fluentui/react-components";
-import RegisterPage from './pages/Register';
 
 const brandVariants: BrandVariants = {
   10: "#050205",
@@ -41,9 +43,18 @@ const lightTheme: Theme = {
   ...createLightTheme(brandVariants),
 };
 
+function ScrollToTop() {
+  const location = useLocation();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location]);
+  return null;
+}
+
 function App() {
   return (
     <Router>
+      <ScrollToTop />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/confirmation" element={<Confirmation />} />
