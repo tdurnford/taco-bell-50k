@@ -261,7 +261,7 @@ export const RegistrationForm: FC<Props> = ({ disabled }) => {
   return (
     <form className="registration-form" onSubmit={handleSubmit}>
       <br></br>
-      <h2>Register for the Race</h2>
+      <h2 style={{ textAlign: "center", marginTop: "0px" }}>Registration</h2>
       {disabled ? (
         <p>Registration is currently closed. Please check back later.</p>
       ) : null}
