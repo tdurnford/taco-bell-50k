@@ -22,7 +22,7 @@ const useStyles = makeStyles({
     backgroundSize: "cover",
     backgroundPositionX: "center",
     backgroundPositionY: "center",
-    height: "200px",
+    height: "300px",
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
@@ -92,6 +92,9 @@ const Confirmation = () => {
       </div>
       <div className={classes.content}>
         <h2>You're in! Thanks for registering.</h2>
+        
+        <p>You will receive an email with detailed race information as race day approaches.</p>
+        
         <p>Registration for the Taco Bell 50K is free, but please consider supporting our charity partner, Achilles International.</p>
 
         <p> Achilles International is a 501(c)(3) nonprofit organization that pairs runners with disabilites with volunteer guides, aiming to create a community of all abilities through sport. Founded in 1983, Achilles has chapters worldwide, including in Denver, Colorado.</p>

@@ -81,9 +81,9 @@ const NotFound = () => {
   return (
     <FluentProvider theme={lightTheme}>
       <div className={classes.heroBanner}>
-        <h1>Not Found</h1>
       </div>
       <div className={classes.content}>
+        <h2>Not Found</h2>
         <p>Sorry, the page you are looking for does not exist.</p>
       </div>
     </FluentProvider>
