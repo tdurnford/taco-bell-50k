@@ -19,6 +19,8 @@ import { lightTheme } from "../App";
 const useStyles = makeStyles({
   content: {
     maxWidth: "800px",
+    marginLeft: "auto",
+    marginRight: "auto",
     ...shorthands.padding("48px"),
     "@media screen and (max-width: 600px)": {
       ...shorthands.padding("48px", "20px"),
