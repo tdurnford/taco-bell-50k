@@ -31,6 +31,15 @@ jobs:
       - name: Run tests
         run: npm run test
 
+      # This allows routing to work properly on GitHub Pages
+      # index.html is a wrapper for the app, and so 
+      # would 404.html. Any request to a page besides the home page
+      # (for example "tacobell50k.com/register") would go to 
+      # 404.html, which contains the app. The app would then route 
+      # properly based on the request
+      - name: Copy index.html to 404.html
+        run: cp ./build/index.html ./build/404.html
+
       - name: Upload production-ready build files
         uses: actions/upload-artifact@v4
         with:
