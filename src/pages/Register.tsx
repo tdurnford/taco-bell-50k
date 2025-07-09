@@ -15,15 +15,24 @@ const useStyles = makeStyles({
     backgroundColor: "#311D63",
     /* Large amount of padding on top and bottom, none on sides */
     /* Makes the registration content appear as a card */
-    padding: "120px 0px",
+    padding: "100px 0px",
+    "@media screen and (max-width: 600px)": {
+      // Shrink padding on mobile
+      padding: "20px 20px",
+    },
   },
   content: {
+    width: "75%",
     maxWidth: "800px",
     backgroundColor: "white",
     marginLeft: "auto",
     marginRight: "auto",
     padding: "48px",
     "@media screen and (max-width: 600px)": {
+      // Use unset to all content to take up 
+      // the full width on mobile, minus the 20px padding
+      // in background, above
+      width: "unset",
       padding: "48px 20px",
     },
   },
