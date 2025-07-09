@@ -17,7 +17,7 @@ const useStyles = makeStyles({
     backgroundSize: "cover",
     backgroundPositionX: "center",
     backgroundPositionY: "center",
-    height: "600px",
+    height: "50vh",
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
