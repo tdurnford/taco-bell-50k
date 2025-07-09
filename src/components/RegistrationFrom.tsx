@@ -13,7 +13,10 @@ import {
   TextareaProps,
 } from "@fluentui/react-components";
 import { produce } from "immer";
+// Forms are submitted to Formspree
 import { useSubmit } from "@formspree/react";
+// React Router to direct to confirmation page after successful registration
+import { useNavigate } from "react-router-dom";
 
 const useStyles = makeStyles({
   registrationForm: {
@@ -38,8 +41,9 @@ type Props = {
   disabled?: boolean;
 };
 
-export const Registration: FC<Props> = ({ disabled }) => {
+export const RegistrationForm: FC<Props> = ({ disabled }) => {
   const classes = useStyles();
+  const navigate = useNavigate();
   const { dispatchToast } = useToastController();
   const [formData, setFormData] = useState<FormData>({
     firstName: "",
@@ -99,6 +103,12 @@ export const Registration: FC<Props> = ({ disabled }) => {
         phoneNumber: "",
         comments: "",
       });
+      // Navigate to confirmation page
+      // replace: true keeps this page from being registered in the browser 
+      // history stack, so the user can't go back to it
+      // This makes it harder for people to spam the registration form
+      // and easier to navigate back to the home page
+      navigate("/confirmation", { replace: true });
       dispatchToast(
         <Toast
           style={{
@@ -251,7 +261,7 @@ export const Registration: FC<Props> = ({ disabled }) => {
   return (
     <form className="registration-form" onSubmit={handleSubmit}>
       <br></br>
-      <h2>Register for the Race</h2>
+      <h2 style={{ textAlign: "center", marginTop: "0px" }}>Registration</h2>
       {disabled ? (
         <p>Registration is currently closed. Please check back later.</p>
       ) : null}

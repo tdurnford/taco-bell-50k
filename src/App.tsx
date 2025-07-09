@@ -1,20 +1,24 @@
+/* Multi-page app via router */
+/* This was added to show a confirmation page with a donation link to Achilles to users when submitting registration info. */
+/* This can be expanded in the future. */ 
+
+/* Import Router and page components */
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
+
+import Home from './pages/Home';
+import Confirmation from './pages/Confirmation';
+import Register from './pages/Register';
+import NotFound from './pages/NotFound';
+
+// Create light theme for Fluent UI components
+// This is used on multiple pages, and thus is defined here
 import {
   BrandVariants,
-  FluentProvider,
   Theme,
   createLightTheme,
-  makeStyles,
-  shorthands,
 } from "@fluentui/react-components";
-
-import { HeroBanner } from "./components/Banner";
-import { RaceDescription } from "./components/Description";
-import { RaceDetails } from "./components/Details";
-import { Rules } from "./components/Rules";
-import { Countdown } from "./components/Countdown";
-//import { NewsLetter } from "./components/NewsLetter";
-import { Registration } from "./components/Register";
-import { Donate } from "./components/Donate";
 
 const brandVariants: BrandVariants = {
   10: "#050205",
@@ -39,34 +43,30 @@ const lightTheme: Theme = {
   ...createLightTheme(brandVariants),
 };
 
-const useStyles = makeStyles({
-  content: {
-    maxWidth: "800px",
-    ...shorthands.padding("48px"),
-    "@media screen and (max-width: 600px)": {
-      ...shorthands.padding("48px", "20px"),
-    },
-  },
-});
+function ScrollToTop() {
+  const location = useLocation();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location]);
+  return null;
+}
 
 function App() {
-  const classes = useStyles();
   return (
-    <FluentProvider theme={lightTheme}>
-      <div>
-        <HeroBanner />
-        <Countdown />
-        <div className={classes.content}>
-          <RaceDescription />
-          <RaceDetails />
-          <Rules />
-          {/* <Videos /> */}
-          <Registration />
-          <Donate />
-        </div>
-      </div>
-    </FluentProvider>
+    <Router>
+      <ScrollToTop />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/confirmation" element={<Confirmation />} />
+        <Route path="/register" element={<Register />} />
+        {/* Add a catch-all route for 404 Not Found */}
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </Router>
   );
 }
+
+// Export the light theme for use in other components
+export { lightTheme };
 
 export default App;
