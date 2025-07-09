@@ -1,17 +1,19 @@
 {
   "files": {
     "main.css": "/static/css/main.77cea6ac.css",
-    "main.js": "/static/js/main.905ac134.js",
-    "static/js/787.fe419a38.chunk.js": "/static/js/787.fe419a38.chunk.js",
+    "main.js": "/static/js/main.caad0ceb.js",
+    "static/js/453.cf0f3ed0.chunk.js": "/static/js/453.cf0f3ed0.chunk.js",
     "static/media/hero-banner.png": "/static/media/hero-banner.ed17622f21647ceb3d5a.png",
-    "static/media/logo.png": "/static/media/logo.68b2750590c2ec6fe989.png",
+    "static/media/pinto-bean-awakens.png": "/static/media/pinto-bean-awakens.e00ed391cced90a74721.png",
+    "static/media/not-found-image.png": "/static/media/not-found-image.ba6c76327fb67f7e1ec4.png",
+    "static/media/achilles-logo.png": "/static/media/achilles-logo.68b2750590c2ec6fe989.png",
     "index.html": "/index.html",
     "main.77cea6ac.css.map": "/static/css/main.77cea6ac.css.map",
-    "main.905ac134.js.map": "/static/js/main.905ac134.js.map",
-    "787.fe419a38.chunk.js.map": "/static/js/787.fe419a38.chunk.js.map"
+    "main.caad0ceb.js.map": "/static/js/main.caad0ceb.js.map",
+    "453.cf0f3ed0.chunk.js.map": "/static/js/453.cf0f3ed0.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.77cea6ac.css",
-    "static/js/main.905ac134.js"
+    "static/js/main.caad0ceb.js"
   ]
 }
