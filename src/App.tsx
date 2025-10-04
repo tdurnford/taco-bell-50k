@@ -68,7 +68,7 @@ function App() {
           path="/register/2026"
           element={
             // TODO: replace with actual 2026 Formspree endpoint ID
-            <Register formspreeEndpoint="YOUR_2026_ENDPOINT_ID" />
+            <Register formspreeEndpoint="mjkarnlz" />
           }
         />
         {/* Add a catch-all route for 404 Not Found */}

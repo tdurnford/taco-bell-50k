@@ -51,27 +51,28 @@ function Home() {
 
   // Component
   return (
-      <FluentProvider theme={lightTheme}>
-        <div>
-          <HeroBanner />
-          <Countdown />
-          <div className={classes.content}>
-            <RaceDescription />
-            <RaceDetails />
-            <Rules />
-            {/* <Videos /> */}
-            <Button onClick={handleGoToRegistration2025} appearance="primary" className={classes.registerButton}>
-              Register for 2025
-            </Button>
-            {/* New button for 2026 registration */}
-            <Button onClick={handleGoToRegistration2026} appearance="primary" className={classes.registerButton}>
-              Register for 2026
-            </Button>
-            <Donate />
-          </div>
+    <FluentProvider theme={lightTheme}>
+      <div>
+        <HeroBanner />
+        <Countdown />
+        <div className={classes.content}>
+          <RaceDescription />
+          <RaceDetails />
+          <Rules />
+          {/* <Videos /> */}
+          {/* Button for 2026 registration */}
+          <Button
+            onClick={handleGoToRegistration2026}
+            appearance="primary"
+            className={classes.registerButton}
+          >
+            Register for 2026
+          </Button>
+          <Donate />
         </div>
-      </FluentProvider>
-    );
+      </div>
+    </FluentProvider>
+  );
 }
 
 export default Home;

@@ -61,7 +61,6 @@ const Register: FC<RegisterProps> = ({ formspreeEndpoint }: RegisterProps) => {
          <div className={classes.background}>
            <div className={classes.content}>
              <img src={pintoBeanAwakens} alt="Taco Bell 50K unofficial logo. A cracked bell with the text 'the Pinto Bean Awakens'." className={classes.pintoBeanAwakens} />
--            <RegistrationForm formspreeEndpoint="myzgjwkp"/>
 +            <RegistrationForm formspreeEndpoint={formspreeEndpoint} />
            </div>
          </div>
