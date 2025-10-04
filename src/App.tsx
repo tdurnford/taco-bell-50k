@@ -58,7 +58,19 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/confirmation" element={<Confirmation />} />
-        <Route path="/register" element={<Register />} />
+        {/* Pass formspreeEndpoint prop to Register component for 2025 */}
+        <Route
+          path="/register/2025"
+          element={<Register formspreeEndpoint="myzgjwkp" />}
+        />
+        {/* New registration route for 2026 */}
+        <Route
+          path="/register/2026"
+          element={
+            // TODO: replace with actual 2026 Formspree endpoint ID
+            <Register formspreeEndpoint="mjkarnlz" />
+          }
+        />
         {/* Add a catch-all route for 404 Not Found */}
         <Route path="*" element={<NotFound />} />
       </Routes>

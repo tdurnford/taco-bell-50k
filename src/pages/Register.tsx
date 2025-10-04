@@ -2,6 +2,7 @@ import {
   FluentProvider,
   makeStyles,
 } from "@fluentui/react-components";
+import { type FC } from 'react';
 
 import { RegistrationForm } from "../components/RegistrationFrom";
 
@@ -45,21 +46,26 @@ const useStyles = makeStyles({
   },
 });
 
-function Register() {
-  // Hooks
-  const classes = useStyles();
+// Add formspreeEndpoint prop to allow dynamic endpoint
+type RegisterProps = {
+  /** Formspree endpoint ID passed to RegistrationForm */
+  formspreeEndpoint: string;
+};
+const Register: FC<RegisterProps> = ({ formspreeEndpoint }: RegisterProps) => {
+   // Hooks
+   const classes = useStyles();
 
-  // Component
-  return (
-      <FluentProvider theme={lightTheme}>
-        <div className={classes.background}>
-          <div className={classes.content}>
-            <img src={pintoBeanAwakens} alt="Taco Bell 50K unofficial logo. A cracked bell with the text 'the Pinto Bean Awakens'." className={classes.pintoBeanAwakens} />
-            <RegistrationForm />
-          </div>
-        </div>
-      </FluentProvider>
-    );
-}
+   // Component
+   return (
+       <FluentProvider theme={lightTheme}>
+         <div className={classes.background}>
+           <div className={classes.content}>
+             <img src={pintoBeanAwakens} alt="Taco Bell 50K unofficial logo. A cracked bell with the text 'the Pinto Bean Awakens'." className={classes.pintoBeanAwakens} />
++            <RegistrationForm formspreeEndpoint={formspreeEndpoint} />
+           </div>
+         </div>
+       </FluentProvider>
+     );
+};
 
 export default Register;

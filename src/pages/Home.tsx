@@ -41,28 +41,38 @@ function Home() {
   const classes = useStyles();
   const navigate = useNavigate();
 
-  // Handlers
-  const handleGoToRegistration = () => {
-    navigate("/register", { preventScrollReset: false });
+  // Handlers for year-specific registration
+  // const handleGoToRegistration2025 = () => {
+  //   navigate("/register/2025", { preventScrollReset: false });
+  // };
+  const handleGoToRegistration2026 = () => {
+    navigate("/register/2026", { preventScrollReset: false });
   };
 
   // Component
   return (
-      <FluentProvider theme={lightTheme}>
-        <div>
-          <HeroBanner />
-          <Countdown />
-          <div className={classes.content}>
-            <RaceDescription />
-            <RaceDetails />
-            <Rules />
-            {/* <Videos /> */}
-            <Button onClick={handleGoToRegistration} appearance="primary" className={classes.registerButton}>Register</Button>
-            <Donate />
-          </div>
+    <FluentProvider theme={lightTheme}>
+      <div>
+        <HeroBanner />
+        <Countdown />
+        <div className={classes.content}>
+          <RaceDescription />
+          <RaceDetails />
+          <Rules />
+          {/* <Videos /> */}
+          {/* Button for 2026 registration */}
+          <Button
+            onClick={handleGoToRegistration2026}
+            appearance="primary"
+            className={classes.registerButton}
+          >
+            Register for 2026
+          </Button>
+          <Donate />
         </div>
-      </FluentProvider>
-    );
+      </div>
+    </FluentProvider>
+  );
 }
 
 export default Home;
