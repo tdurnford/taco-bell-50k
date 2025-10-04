@@ -41,9 +41,12 @@ function Home() {
   const classes = useStyles();
   const navigate = useNavigate();
 
-  // Handlers
-  const handleGoToRegistration = () => {
-    navigate("/register", { preventScrollReset: false });
+  // Handlers for year-specific registration
+  const handleGoToRegistration2025 = () => {
+    navigate("/register/2025", { preventScrollReset: false });
+  };
+  const handleGoToRegistration2026 = () => {
+    navigate("/register/2026", { preventScrollReset: false });
   };
 
   // Component
@@ -57,7 +60,13 @@ function Home() {
             <RaceDetails />
             <Rules />
             {/* <Videos /> */}
-            <Button onClick={handleGoToRegistration} appearance="primary" className={classes.registerButton}>Register for 2025</Button>
+            <Button onClick={handleGoToRegistration2025} appearance="primary" className={classes.registerButton}>
+              Register for 2025
+            </Button>
+            {/* New button for 2026 registration */}
+            <Button onClick={handleGoToRegistration2026} appearance="primary" className={classes.registerButton}>
+              Register for 2026
+            </Button>
             <Donate />
           </div>
         </div>
