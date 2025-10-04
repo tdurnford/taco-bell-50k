@@ -42,9 +42,9 @@ function Home() {
   const navigate = useNavigate();
 
   // Handlers for year-specific registration
-  const handleGoToRegistration2025 = () => {
-    navigate("/register/2025", { preventScrollReset: false });
-  };
+  // const handleGoToRegistration2025 = () => {
+  //   navigate("/register/2025", { preventScrollReset: false });
+  // };
   const handleGoToRegistration2026 = () => {
     navigate("/register/2026", { preventScrollReset: false });
   };
