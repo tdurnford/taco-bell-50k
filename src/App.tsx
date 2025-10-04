@@ -58,7 +58,8 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/confirmation" element={<Confirmation />} />
-        <Route path="/register" element={<Register />} />
+        {/* Pass formspreeEndpoint prop to Register component */}
+        <Route path="/register" element={<Register formspreeEndpoint="myzgjwkp" />} />
         {/* Add a catch-all route for 404 Not Found */}
         <Route path="*" element={<NotFound />} />
       </Routes>

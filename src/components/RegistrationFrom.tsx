@@ -39,9 +39,11 @@ type FormData = {
 
 type Props = {
   disabled?: boolean;
+  /** Formspree endpoint ID for useSubmit */
+  formspreeEndpoint: string;
 };
 
-export const RegistrationForm: FC<Props> = ({ disabled }) => {
+export const RegistrationForm: FC<Props> = ({ disabled, formspreeEndpoint }) => {
   const classes = useStyles();
   const navigate = useNavigate();
   const { dispatchToast } = useToastController();
@@ -58,7 +60,7 @@ export const RegistrationForm: FC<Props> = ({ disabled }) => {
     comments: "",
   });
 
-  const submit = useSubmit<FormData>("myzgjwkp", {
+  const submit = useSubmit<FormData>(formspreeEndpoint, {
     onError: () => {
       dispatchToast(
         <Toast

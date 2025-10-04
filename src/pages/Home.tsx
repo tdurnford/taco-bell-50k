@@ -57,7 +57,7 @@ function Home() {
             <RaceDetails />
             <Rules />
             {/* <Videos /> */}
-            <Button onClick={handleGoToRegistration} appearance="primary" className={classes.registerButton}>Register</Button>
+            <Button onClick={handleGoToRegistration} appearance="primary" className={classes.registerButton}>Register for 2025</Button>
             <Donate />
           </div>
         </div>
