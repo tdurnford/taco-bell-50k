@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import { DateTime, Interval } from "luxon";
 import { makeStyles, shorthands, tokens } from "@fluentui/react-components";
 
-const start = DateTime.local(2025, 10, 4, 7, 0, 0, { zone: "America/Denver" });
+// Countdown target: Saturday, October 3rd, 2026 at 7:30 AM America/Denver
+const start = DateTime.local(2026, 10, 3, 7, 30, 0, { zone: "America/Denver" });
 
 const leadingZero = (value: number) => {
   return value < 10 ? `0${value}` : value;
