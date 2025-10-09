@@ -39,7 +39,7 @@ export const RaceDetails = () => {
       <div className="details-container">
         <div className="detail">
           <h3>Date</h3>
-          <p>Saturday, October 4th, 2025</p>
+          <p>Saturday, October 3rd, 2026</p>
         </div>
         <div className="detail">
           <h3>Start Time</h3>
