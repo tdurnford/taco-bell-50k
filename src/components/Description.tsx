@@ -6,7 +6,7 @@ export const RaceDescription = () => {
         It has been described as Urban Legend. More mysterious and barking
         spiders than the Barkley Marathons. The International Taco Bell 50k
         boasts a higher DNF rate than the famed Leadville 100 Trail Race.
-        According to legend, the race began with a hot tub, a stoic Russian,
+        As the tale is told, the race began with a hot tub, a stoic Russian,
         a short king from New York, and Susie. The race has been held annually
         in Denver, Colorado in early October, which coincidentally coincides
         with International Taco Day. It is a good idea to engage in gastric
