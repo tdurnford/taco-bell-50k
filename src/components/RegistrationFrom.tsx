@@ -20,6 +20,9 @@ import { produce } from "immer";
 import { useSubmit } from "@formspree/react";
 // React Router to direct to confirmation page after successful registration
 import { useNavigate } from "react-router-dom";
+// Address autocomplete component powered by Radar API
+import { AddressAutocomplete } from "./AddressAutocomplete";
+import type { ParsedAddress } from "../services/radarService";
 
 // List of US states and territories for the state dropdown
 // Includes all 50 states plus DC and US territories
@@ -213,6 +216,7 @@ export const RegistrationForm: FC<Props> = ({ disabled, formspreeEndpoint }) => 
     },
   });
 
+  // #region Event Handlers
   const handleSubmit = useCallback<FormEventHandler<HTMLFormElement>>(
     (event) => {
       event.preventDefault();
@@ -310,6 +314,36 @@ export const RegistrationForm: FC<Props> = ({ disabled, formspreeEndpoint }) => 
     );
   }, []);
 
+  /**
+   * Handle address selection from autocomplete dropdown
+   *
+   * When a user selects an address from the Radar API suggestions:
+   * 1. Updates the address field with the full street address
+   * 2. Auto-fills the city field
+   * 3. Auto-fills the state dropdown (using the state abbreviation)
+   * 4. Auto-fills the zip code field
+   *
+   * This creates a seamless user experience where selecting one address
+   * automatically populates all related fields.
+   */
+  const handleAddressSelect = useCallback(
+    (parsedAddress: ParsedAddress) => {
+      setFormData((currentData) =>
+        produce(currentData, (draft) => {
+          // Update address with the street address from Radar
+          draft.address = parsedAddress.streetAddress;
+          // Auto-fill city
+          draft.city = parsedAddress.city;
+          // Auto-fill state using the two-letter abbreviation (matches our dropdown values)
+          draft.state = parsedAddress.stateCode;
+          // Auto-fill zip code
+          draft.zipCode = parsedAddress.zipCode;
+        })
+      );
+    },
+    []
+  );
+
   const handleCityChange = useCallback<
     NonNullable<InputProps["onChange"]>
   >((_, { value }) => {
@@ -353,6 +387,8 @@ export const RegistrationForm: FC<Props> = ({ disabled, formspreeEndpoint }) => 
     );
   }, []);
 
+  // #endregion 
+
   return (
     <form className="registration-form" onSubmit={handleSubmit}>
       <br></br>
@@ -384,13 +420,12 @@ export const RegistrationForm: FC<Props> = ({ disabled, formspreeEndpoint }) => 
             onChange={handleLastNameChange}
           />
         </Field>
-        <Field required label="Address">
-          <Input
-            disabled={disabled}
-            value={formData.address}
-            onChange={handleAddressChange}
-          />
-        </Field>
+        <AddressAutocomplete
+          value={formData.address}
+          onChange={handleAddressChange}
+          onAddressSelect={handleAddressSelect}
+          disabled={disabled}
+        />
         <Field required label="City">
           <Input
             disabled={disabled}
