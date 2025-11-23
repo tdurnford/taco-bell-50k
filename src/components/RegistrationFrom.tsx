@@ -11,12 +11,76 @@ import {
   ToastTitle,
   Textarea,
   TextareaProps,
+  Dropdown,
+  DropdownProps,
+  Option,
 } from "@fluentui/react-components";
 import { produce } from "immer";
 // Forms are submitted to Formspree
 import { useSubmit } from "@formspree/react";
 // React Router to direct to confirmation page after successful registration
 import { useNavigate } from "react-router-dom";
+
+// List of US states and territories for the state dropdown
+// Includes all 50 states plus DC and US territories
+const US_STATES = [
+  { key: "AL", text: "Alabama" },
+  { key: "AK", text: "Alaska" },
+  { key: "AZ", text: "Arizona" },
+  { key: "AR", text: "Arkansas" },
+  { key: "CA", text: "California" },
+  { key: "CO", text: "Colorado" },
+  { key: "CT", text: "Connecticut" },
+  { key: "DE", text: "Delaware" },
+  { key: "DC", text: "District of Columbia" },
+  { key: "FL", text: "Florida" },
+  { key: "GA", text: "Georgia" },
+  { key: "HI", text: "Hawaii" },
+  { key: "ID", text: "Idaho" },
+  { key: "IL", text: "Illinois" },
+  { key: "IN", text: "Indiana" },
+  { key: "IA", text: "Iowa" },
+  { key: "KS", text: "Kansas" },
+  { key: "KY", text: "Kentucky" },
+  { key: "LA", text: "Louisiana" },
+  { key: "ME", text: "Maine" },
+  { key: "MD", text: "Maryland" },
+  { key: "MA", text: "Massachusetts" },
+  { key: "MI", text: "Michigan" },
+  { key: "MN", text: "Minnesota" },
+  { key: "MS", text: "Mississippi" },
+  { key: "MO", text: "Missouri" },
+  { key: "MT", text: "Montana" },
+  { key: "NE", text: "Nebraska" },
+  { key: "NV", text: "Nevada" },
+  { key: "NH", text: "New Hampshire" },
+  { key: "NJ", text: "New Jersey" },
+  { key: "NM", text: "New Mexico" },
+  { key: "NY", text: "New York" },
+  { key: "NC", text: "North Carolina" },
+  { key: "ND", text: "North Dakota" },
+  { key: "OH", text: "Ohio" },
+  { key: "OK", text: "Oklahoma" },
+  { key: "OR", text: "Oregon" },
+  { key: "PA", text: "Pennsylvania" },
+  { key: "RI", text: "Rhode Island" },
+  { key: "SC", text: "South Carolina" },
+  { key: "SD", text: "South Dakota" },
+  { key: "TN", text: "Tennessee" },
+  { key: "TX", text: "Texas" },
+  { key: "UT", text: "Utah" },
+  { key: "VT", text: "Vermont" },
+  { key: "VA", text: "Virginia" },
+  { key: "WA", text: "Washington" },
+  { key: "WV", text: "West Virginia" },
+  { key: "WI", text: "Wisconsin" },
+  { key: "WY", text: "Wyoming" },
+  { key: "AS", text: "American Samoa" },
+  { key: "GU", text: "Guam" },
+  { key: "MP", text: "Northern Mariana Islands" },
+  { key: "PR", text: "Puerto Rico" },
+  { key: "VI", text: "U.S. Virgin Islands" },
+];
 
 const useStyles = makeStyles({
   registrationForm: {
@@ -31,7 +95,9 @@ type FormData = {
   bibName: string;
   email: string;
   address: string;
-  cityStateZip: string;
+  city: string;
+  state: string;
+  zipCode: string;
   emergencyContact: string;
   phoneNumber: string;
   comments: string;
@@ -54,7 +120,9 @@ export const RegistrationForm: FC<Props> = ({ disabled, formspreeEndpoint }) => 
     bibName: "",
     email: "",
     address: "",
-    cityStateZip: "",
+    city: "",
+    state: "",
+    zipCode: "",
     emergencyContact: "",
     phoneNumber: "",
     comments: "",
@@ -100,7 +168,9 @@ export const RegistrationForm: FC<Props> = ({ disabled, formspreeEndpoint }) => 
         bibName: "",
         email: "",
         address: "",
-        cityStateZip: "",
+        city: "",
+        state: "",
+        zipCode: "",
         emergencyContact: "",
         phoneNumber: "",
         comments: "",
@@ -240,15 +310,38 @@ export const RegistrationForm: FC<Props> = ({ disabled, formspreeEndpoint }) => 
     );
   }, []);
 
-  const handleCityStateZipChange = useCallback<
-  NonNullable<InputProps["onChange"]>
->((_, { value }) => {
-  setFormData((currentData) =>
-    produce(currentData, (draft) => {
-      draft.cityStateZip = value;
-    })
-  );
-}, []);
+  const handleCityChange = useCallback<
+    NonNullable<InputProps["onChange"]>
+  >((_, { value }) => {
+    setFormData((currentData) =>
+      produce(currentData, (draft) => {
+        draft.city = value;
+      })
+    );
+  }, []);
+
+  // Handler for state dropdown selection
+  // Uses DropdownProps onChange signature which provides selectedOptions array
+  const handleStateChange = useCallback<
+    NonNullable<DropdownProps["onOptionSelect"]>
+  >((_, data) => {
+    setFormData((currentData) =>
+      produce(currentData, (draft) => {
+        // Extract the selected state value from the dropdown data
+        draft.state = data.optionValue ?? "";
+      })
+    );
+  }, []);
+
+  const handleZipCodeChange = useCallback<
+    NonNullable<InputProps["onChange"]>
+  >((_, { value }) => {
+    setFormData((currentData) =>
+      produce(currentData, (draft) => {
+        draft.zipCode = value;
+      })
+    );
+  }, []);
 
   const handleEmergencyContactChange = useCallback<
     NonNullable<InputProps["onChange"]>
@@ -298,11 +391,33 @@ export const RegistrationForm: FC<Props> = ({ disabled, formspreeEndpoint }) => 
             onChange={handleAddressChange}
           />
         </Field>
-        <Field required label="City, State, Zipcode">
+        <Field required label="City">
           <Input
             disabled={disabled}
-            value={formData.cityStateZip}
-            onChange={handleCityStateZipChange}
+            value={formData.city}
+            onChange={handleCityChange}
+          />
+        </Field>
+        <Field required label="State">
+          <Dropdown
+            disabled={disabled}
+            placeholder="Select a state"
+            value={US_STATES.find((s) => s.key === formData.state)?.text ?? formData.state}
+            selectedOptions={formData.state ? [formData.state] : []}
+            onOptionSelect={handleStateChange}
+          >
+            {US_STATES.map((state) => (
+              <Option key={state.key} value={state.key}>
+                {state.text}
+              </Option>
+            ))}
+          </Dropdown>
+        </Field>
+        <Field required label="Zip Code">
+          <Input
+            disabled={disabled}
+            value={formData.zipCode}
+            onChange={handleZipCodeChange}
           />
         </Field>
         <Field required label="Requested Bib Number">
