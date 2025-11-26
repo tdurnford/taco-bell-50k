@@ -14,9 +14,9 @@ import { searchAddresses, type ParsedAddress } from "../services/radarService";
 // Follows the same pattern as other form fields in the registration form
 const useStyles = makeStyles({
   // Container for the entire autocomplete (field + dropdown)
+  // Uses relative positioning to anchor the dropdown below the input
   container: {
     position: "relative",
-    width: "100%",
   },
   // Dropdown container showing address suggestions
   // Uses absolute positioning to avoid layout shifts
@@ -212,6 +212,7 @@ export const AddressAutocomplete: FC<Props> = ({
           placeholder="Start typing your address..."
           // Show spinner at the end of input during loading
           contentAfter={loading ? <Spinner size="tiny" /> : undefined}
+          style={{ width: "100%" }}
         />
 
         {/* Dropdown showing address suggestions - only visible when menu should be open */}

@@ -89,6 +89,64 @@ const useStyles = makeStyles({
   registrationForm: {
     marginBottom: "12px",
   },
+  // Grid layout for city, state, and zip fields
+  // On desktop (≥768px), displays fields side by side with proportional widths
+  // On mobile (<768px), fields stack vertically
+  cityStateZipGrid: {
+    display: "grid",
+    gap: "12px",
+    // Mobile: single column (stacked)
+    gridTemplateColumns: "1fr",
+    // Desktop: city 50%, state 20%, zip 30%
+    // Using fr units instead of % to automatically account for gaps
+    "@media (min-width: 768px)": {
+      gridTemplateColumns: "7fr 3fr 2fr",
+    },
+    // Override Fluent UI's default min-width on all Field children
+    // This allows grid columns to shrink below component defaults
+    "& > *": {
+      minWidth: 0,
+    },
+    // Also override min-width on Input and Dropdown components within Fields
+    // This ensures they don't expand beyond the grid cell
+    "& input, & .fui-Input, & .fui-Field, & .fui-Dropdown": {
+      minWidth: 0,
+    },
+  },
+  // Ensures the state dropdown stays within its grid cell and positions correctly
+  // Text overflow prevents placeholder from wrapping to multiple lines
+  // The button can shrink but text won't overlap the expand icon
+  stateDropdown: {
+    width: "100%",
+    minWidth: "unset", // Allow dropdown to shrink to fit grid cell
+    // Hide the clear selection button (X button)
+    "& .fui-Dropdown__clearButton": {
+      display: "none",
+    },
+    // Prevent text wrapping and show ellipsis for long text in the dropdown button
+    "& button": {
+      minWidth: "unset", // Allow button to shrink to fit grid cell
+      position: "relative", // For absolute positioning of the icon
+      display: "block", // Block display for text overflow to work
+      textOverflow: "ellipsis", // Show ellipsis for long text
+      overflow: "hidden", // Hide overflowing text
+      whiteSpace: "nowrap", // Prevent text wrapping
+      paddingRight: "24px", // Reserve space for the expand icon
+      // Style for the expand icon span to ensure it stays visible on the right
+      "& .fui-Dropdown__expandIcon": {
+        position: "absolute",
+        right: "8px",
+        top: "50%",
+        transform: "translateY(-50%)",
+      },
+    },
+  },
+  // Constrains the dropdown options list to prevent scrolling issues
+  // Limits height so the dropdown doesn't extend beyond viewport during scroll
+  // Otherwise, the dropdown will display to the right of the input, or directly above it, depending on the scroll position
+  stateDropdownListbox: {
+    maxHeight: "200px", // ~8-10 options visible at once
+  },
 });
 
 type FormData = {
@@ -426,35 +484,41 @@ export const RegistrationForm: FC<Props> = ({ disabled, formspreeEndpoint }) => 
           onAddressSelect={handleAddressSelect}
           disabled={disabled}
         />
-        <Field required label="City">
-          <Input
-            disabled={disabled}
-            value={formData.city}
-            onChange={handleCityChange}
-          />
-        </Field>
-        <Field required label="State">
-          <Dropdown
-            disabled={disabled}
-            placeholder="Select a state"
-            value={US_STATES.find((s) => s.key === formData.state)?.text ?? formData.state}
-            selectedOptions={formData.state ? [formData.state] : []}
-            onOptionSelect={handleStateChange}
-          >
-            {US_STATES.map((state) => (
-              <Option key={state.key} value={state.key}>
-                {state.text}
-              </Option>
-            ))}
-          </Dropdown>
-        </Field>
-        <Field required label="Zip Code">
-          <Input
-            disabled={disabled}
-            value={formData.zipCode}
-            onChange={handleZipCodeChange}
-          />
-        </Field>
+        {/* Grid layout for city, state, and zip - side by side on desktop, stacked on mobile */}
+        <div className={classes.cityStateZipGrid}>
+          <Field required label="City">
+            <Input
+              disabled={disabled}
+              value={formData.city}
+              onChange={handleCityChange}
+            />
+          </Field>
+          <Field required label="State">
+            <Dropdown
+              disabled={disabled}
+              placeholder="Select a state"
+              value={US_STATES.find((s) => s.key === formData.state)?.text ?? formData.state}
+              selectedOptions={formData.state ? [formData.state] : []}
+              onOptionSelect={handleStateChange}
+              className={classes.stateDropdown}
+              positioning="below-start"
+              listbox={{ className: classes.stateDropdownListbox }}
+            >
+              {US_STATES.map((state) => (
+                <Option key={state.key} value={state.key}>
+                  {state.text}
+                </Option>
+              ))}
+            </Dropdown>
+          </Field>
+          <Field required label="Zip Code">
+            <Input
+              disabled={disabled}
+              value={formData.zipCode}
+              onChange={handleZipCodeChange}
+            />
+          </Field>
+        </div>
         <Field required label="Requested Bib Number">
           <Input
             disabled={disabled}
