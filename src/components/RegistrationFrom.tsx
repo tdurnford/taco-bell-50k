@@ -1,4 +1,4 @@
-import { FormEventHandler, type FC, useCallback, useState } from "react";
+import { FormEventHandler, type FC, useCallback, useState, useRef } from "react";
 import {
   Field,
   Input,
@@ -23,6 +23,9 @@ import { useNavigate } from "react-router-dom";
 // Address autocomplete component powered by Radar API
 import { AddressAutocomplete } from "./AddressAutocomplete";
 import type { ParsedAddress } from "../services/radarService";
+// Warning and error components for displaying validation messages beneath fields
+import { FieldWarning } from "./FieldWarning";
+import { FieldError } from "./FieldError";
 
 // List of US states and territories for the state dropdown
 // Includes all 50 states plus DC and US territories
@@ -189,6 +192,18 @@ export const RegistrationForm: FC<Props> = ({ disabled, formspreeEndpoint }) => 
     comments: "",
   });
 
+  // Track whether to show a warning for non-numeric bib number during typing
+  // This warning appears in real-time as users enter non-numeric characters
+  const [showBibNumberWarning, setShowBibNumberWarning] = useState(false);
+
+  // Track whether to show an error for non-numeric bib number after submission
+  // This error appears after form submission fails validation and persists until user starts typing again
+  const [showBibNumberError, setShowBibNumberError] = useState(false);
+
+  // Ref to the bib number field for scrolling to it when validation fails
+  // This allows us to programmatically scroll to the field to show the user the error
+  const bibNumberFieldRef = useRef<HTMLDivElement>(null);
+
   const submit = useSubmit<FormData>(formspreeEndpoint, {
     onError: () => {
       dispatchToast(
@@ -275,13 +290,66 @@ export const RegistrationForm: FC<Props> = ({ disabled, formspreeEndpoint }) => 
   });
 
   // #region Event Handlers
+
+  /**
+   * Validates the form data before submission
+   *
+   * This function checks all form fields against validation rules and returns
+   * an array of error messages. If the array is empty, the form is valid.
+   *
+   * As new validation rules are needed, they can be added here by checking
+   * the relevant formData fields and pushing error messages to the errors array.
+   *
+   * When validation fails, this function also sets the appropriate error state
+   * flags that control the display of FieldError components below the form fields.
+   *
+   * @returns Array of validation error messages (empty if form is valid)
+   */
+  const validateForm = useCallback((): string[] => {
+    const errors: string[] = [];
+
+    // Validate that bib number is numeric
+    // Check if value is not empty and contains non-numeric characters
+    if (formData.bibNumber.trim() !== "" && isNaN(Number(formData.bibNumber))) {
+      errors.push("Bib number must be a number");
+      // Set error state to display FieldError component below the bib number field
+      setShowBibNumberError(true);
+      // Hide the warning since we're now showing an error
+      // This prevents both warning and error from displaying simultaneously
+      setShowBibNumberWarning(false);
+    }
+
+    // Additional validation rules can be added here
+    // Example:
+    // if (formData.email && !isValidEmail(formData.email)) {
+    //   errors.push("'Email' must be a valid email address");
+    // }
+
+    return errors;
+  }, [formData.bibNumber]);
+
   const handleSubmit = useCallback<FormEventHandler<HTMLFormElement>>(
     (event) => {
       event.preventDefault();
 
+      // Validate the form before submission
+      const errors = validateForm();
+
+      // If there are validation errors, display them and prevent submission
+      if (errors.length > 0) {
+        // Scroll to the first field with an error so user can see it
+        // Currently only bib number has validation, but this pattern can be extended
+        // to handle multiple validation errors by tracking which field errored first
+        if (bibNumberFieldRef.current) {
+          bibNumberFieldRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+        return;
+      }
+
+      // Submit the form to Formspree
       submit(formData);
     },
-    [formData, submit]
+    [formData, submit, validateForm]
   );
 
   const handleFirstNameChange = useCallback<
@@ -307,14 +375,25 @@ export const RegistrationForm: FC<Props> = ({ disabled, formspreeEndpoint }) => 
 
   const handleBibNumberChange = useCallback<NonNullable<InputProps["onChange"]>>(
     (_, { value }) => {
+      // Always update the form data with the entered value
       setFormData((currentData) =>
         produce(currentData, (draft) => {
-          if (isNaN(Number(value))) {
-            return;
-          }
           draft.bibNumber = value;
         })
       );
+
+      // Clear any error from a previous failed submission when user starts typing
+      // This provides immediate feedback that they're addressing the validation error
+      setShowBibNumberError(false);
+
+      // Show warning in real-time if the value contains non-numeric characters
+      // Check if value is empty first to avoid showing warning on empty field
+      // isNaN returns true for empty strings, so we need special handling
+      if (value.trim() !== "" && isNaN(Number(value))) {
+        setShowBibNumberWarning(true);
+      } else {
+        setShowBibNumberWarning(false);
+      }
     },
     []
   );
@@ -460,8 +539,8 @@ export const RegistrationForm: FC<Props> = ({ disabled, formspreeEndpoint }) => 
          </p>
          <h3>Waiver and Release of Liability</h3>
          <p>
-         In consideration of being allowed to participate in Taco Bell 50k, I hereby release, discharge, and hold harmless the Taco Bell 50k organizers, its officers, directors, employees, volunteers, 
-         agents, and any other associated parties (collectively, the "Released Parties") from any and all liabilities, claims, demands, or causes of action that I may hereafter have for injuries, 
+         In consideration of being allowed to participate in Taco Bell 50k, I hereby release, discharge, and hold harmless the Taco Bell 50k organizers, its officers, directors, employees, volunteers,
+         agents, and any other associated parties (collectively, the "Released Parties") from any and all liabilities, claims, demands, or causes of action that I may hereafter have for injuries,
          damages, or losses arising out of or connected to my participation in the event, including, but not limited to, those caused by the negligence or fault of the Released Parties.</p>
       <div className={classes.registrationForm}>
         <Field required label="First Name">
@@ -519,13 +598,23 @@ export const RegistrationForm: FC<Props> = ({ disabled, formspreeEndpoint }) => 
             />
           </Field>
         </div>
-        <Field required label="Requested Bib Number">
-          <Input
-            disabled={disabled}
-            value={formData.bibNumber}
-            onChange={handleBibNumberChange}
-          />
-        </Field>
+        <div ref={bibNumberFieldRef}>
+          <Field required label="Requested Bib Number">
+            <Input
+              disabled={disabled}
+              value={formData.bibNumber}
+              onChange={handleBibNumberChange}
+            />
+            {/* Show warning during typing if entry is non-numeric and no error is showing */}
+            {showBibNumberWarning && !showBibNumberError && (
+              <FieldWarning message="Entry must be a number" />
+            )}
+            {/* Show error after failed submission until user starts typing */}
+            {showBibNumberError && (
+              <FieldError message="Entry must be a number" />
+            )}
+          </Field>
+        </div>
         <Field required label="What name do you want on your bib?">
           <Input
             disabled={disabled}
