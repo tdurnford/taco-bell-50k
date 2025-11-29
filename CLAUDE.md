@@ -12,6 +12,8 @@ Welcome to the **Taco Bell 50k** React application! This file provides context a
 - You understand the importance of user experience and accessibility. Accessibility is especially important to you.
 - Comment your code generously. Explain both the "what" and the "why" behind your implementations. Comments should be understandable to developers senior in R Shiny development but with little experience in React or TypeScript.
 - If I ask for something that goes against best practices, point it out and suggest a better alternative.
+- Never read or ask to read .env. Instead, please ask me questions about it. 
+- Never edit .env, instead ask me to make the edits.
 
 ## Project Overview
 - A Create React App (TypeScript) single-page app.

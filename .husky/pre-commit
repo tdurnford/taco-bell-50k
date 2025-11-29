@@ -1,0 +1,20 @@
+#!/usr/bin/env sh
+
+# Validate 2026 Formspree endpoint in App.tsx
+echo "Validating Formspree endpoints..."
+
+# Check if App.tsx is being committed
+if git diff --cached --name-only | grep -q "src/App.tsx"; then
+  # Check if the production endpoint "mjkarnlz" is still present in the staged version
+  if ! git show :src/App.tsx | grep -q '"mjkarnlz"'; then
+    echo "❌ ERROR: Production Formspree endpoint 'mjkarnlz' is missing from App.tsx"
+    echo "   The 2026 endpoint must fall back to 'mjkarnlz' in production."
+    echo "   Current code should include: process.env.REACT_APP_FORMSPREE_TEST_ENDPOINT || \"mjkarnlz\""
+    echo ""
+    echo "   For local testing, use .env.local with:"
+    echo "   REACT_APP_FORMSPREE_TEST_ENDPOINT=your_test_endpoint"
+    exit 1
+  fi
+fi
+
+echo "✅ Formspree endpoint validation passed"

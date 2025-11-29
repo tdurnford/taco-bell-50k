@@ -63,12 +63,19 @@ function App() {
           path="/register/2025"
           element={<Register formspreeEndpoint="myzgjwkp" />}
         />
-        {/* New registration route for 2026 */}
+        {/* 2026 registration route
+            Uses REACT_APP_FORMSPREE_TEST_ENDPOINT for local 
+            testing if set, otherwise uses
+            the production endpoint 'mjkarnlz'
+            Pre-commit hook validates production endpoint is not changed */}
         <Route
           path="/register/2026"
           element={
-            // TODO: replace with actual 2026 Formspree endpoint ID
-            <Register formspreeEndpoint="mjkarnlz" />
+            <Register
+              formspreeEndpoint={
+                process.env.REACT_APP_FORMSPREE_TEST_ENDPOINT || "mjkarnlz"
+              }
+            />
           }
         />
         {/* Add a catch-all route for 404 Not Found */}
