@@ -200,9 +200,16 @@ export const RegistrationForm: FC<Props> = ({ disabled, formspreeEndpoint }) => 
   // This error appears after form submission fails validation and persists until user starts typing again
   const [showBibNumberError, setShowBibNumberError] = useState(false);
 
+  // Track whether to show an error for invalid email after submission
+  // This error appears after form submission fails validation and persists until user starts typing again
+  const [showEmailError, setShowEmailError] = useState(false);
+
   // Ref to the bib number field for scrolling to it when validation fails
   // This allows us to programmatically scroll to the field to show the user the error
   const bibNumberFieldRef = useRef<HTMLDivElement>(null);
+
+  // Ref to the email field for scrolling to it when validation fails
+  const emailFieldRef = useRef<HTMLDivElement>(null);
 
   const submit = useSubmit<FormData>(formspreeEndpoint, {
     onError: () => {
@@ -292,6 +299,28 @@ export const RegistrationForm: FC<Props> = ({ disabled, formspreeEndpoint }) => 
   // #region Event Handlers
 
   /**
+   * Validates that an email address is in a valid format
+   *
+   * Uses a standard email regex pattern that checks for:
+   * - One or more characters before the @ symbol (alphanumeric, dots, hyphens, underscores, plus signs)
+   * - An @ symbol
+   * - One or more characters for the domain (alphanumeric, dots, hyphens)
+   * - A dot followed by 2+ characters for the TLD
+   *
+   * This provides more user-friendly validation than the HTML5 type="email" attribute,
+   * which has browser-specific quirks and less clear error messages.
+   *
+   * @param email - The email string to validate
+   * @returns true if the email is valid, false otherwise
+   */
+  const isValidEmail = useCallback((email: string): boolean => {
+    // Basic email regex pattern
+    // Matches: user@domain.com, first.last+tag@sub.domain.co.uk, etc.
+    const emailRegex = /^[a-zA-Z0-9._+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    return emailRegex.test(email);
+  }, []);
+
+  /**
    * Validates the form data before submission
    *
    * This function checks all form fields against validation rules and returns
@@ -302,6 +331,9 @@ export const RegistrationForm: FC<Props> = ({ disabled, formspreeEndpoint }) => 
    *
    * When validation fails, this function also sets the appropriate error state
    * flags that control the display of FieldError components below the form fields.
+   *
+   * Validation happens in order of fields on the form, so the first error will be
+   * the one we scroll to (for better UX).
    *
    * @returns Array of validation error messages (empty if form is valid)
    */
@@ -319,14 +351,16 @@ export const RegistrationForm: FC<Props> = ({ disabled, formspreeEndpoint }) => 
       setShowBibNumberWarning(false);
     }
 
-    // Additional validation rules can be added here
-    // Example:
-    // if (formData.email && !isValidEmail(formData.email)) {
-    //   errors.push("'Email' must be a valid email address");
-    // }
+    // Validate that email is in a valid format
+    // Check if email is not empty and doesn't match the email pattern
+    if (formData.email.trim() !== "" && !isValidEmail(formData.email.trim())) {
+      errors.push("Email must be a valid email address");
+      // Set error state to display FieldError component below the email field
+      setShowEmailError(true);
+    }
 
     return errors;
-  }, [formData.bibNumber]);
+  }, [formData.bibNumber, formData.email, isValidEmail]);
 
   const handleSubmit = useCallback<FormEventHandler<HTMLFormElement>>(
     (event) => {
@@ -338,10 +372,12 @@ export const RegistrationForm: FC<Props> = ({ disabled, formspreeEndpoint }) => 
       // If there are validation errors, display them and prevent submission
       if (errors.length > 0) {
         // Scroll to the first field with an error so user can see it
-        // Currently only bib number has validation, but this pattern can be extended
-        // to handle multiple validation errors by tracking which field errored first
-        if (bibNumberFieldRef.current) {
+        // Check fields in the order they appear on the form for better UX
+        // This ensures we scroll to the topmost error first
+        if (bibNumberFieldRef.current && showBibNumberError) {
           bibNumberFieldRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        } else if (emailFieldRef.current && showEmailError) {
+          emailFieldRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
         return;
       }
@@ -349,7 +385,7 @@ export const RegistrationForm: FC<Props> = ({ disabled, formspreeEndpoint }) => 
       // Submit the form to Formspree
       submit(formData);
     },
-    [formData, submit, validateForm]
+    [formData, submit, validateForm, showBibNumberError, showEmailError]
   );
 
   const handleFirstNameChange = useCallback<
@@ -417,6 +453,9 @@ export const RegistrationForm: FC<Props> = ({ disabled, formspreeEndpoint }) => 
           draft.email = value;
         })
       );
+
+      // Clear any error from a previous failed submission when user starts typing
+      setShowEmailError(false);
     },
     []
   );
@@ -622,14 +661,19 @@ export const RegistrationForm: FC<Props> = ({ disabled, formspreeEndpoint }) => 
             onChange={handleBibNameChange}
           />
         </Field>
-        <Field required label="Email">
-          <Input
-            disabled={disabled}
-            type="email"
-            value={formData.email}
-            onChange={handleEmailChange}
-          />
-        </Field>
+        <div ref={emailFieldRef}>
+          <Field required label="Email">
+            <Input
+              disabled={disabled}
+              value={formData.email}
+              onChange={handleEmailChange}
+            />
+            {/* Show error after failed submission until user starts typing */}
+            {showEmailError && (
+              <FieldError message="Email must be a valid email address" />
+            )}
+          </Field>
+        </div>
         <Field required label="Phone Number">
           <Input
             disabled={disabled}
