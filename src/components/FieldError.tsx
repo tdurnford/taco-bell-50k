@@ -1,5 +1,7 @@
 import { type FC } from "react";
 import { makeStyles, tokens } from "@fluentui/react-components";
+// Phosphor icon for displaying an X circle icon before error messages
+import { XCircleIcon } from "@phosphor-icons/react";
 
 /**
  * Props for the FieldError component
@@ -12,18 +14,21 @@ type FieldErrorProps = {
 /**
  * Styles for the error component
  * Uses Fluent UI's color tokens for consistent theming
- * Similar to FieldWarning but uses different error colors
- * Will be updated with a different icon in the future
+ * Similar to FieldWarning but uses different error colors and displays an X circle icon
  */
 const useStyles = makeStyles({
   error: {
-    // Uses Fluent UI's red palette for error messages
-    color: tokens.colorPaletteRedForeground1,
-    fontSize: "12px",
+    // Uses custom "diablo" color from global CSS variables for error messages
+    // Falls back to Fluent UI's red color if the CSS variable is not defined
+    color: `var(--color-diablo, ${tokens.colorPaletteRedForeground1})`,
+    fontSize: "14px",
     marginTop: "4px",
-    // Adds a subtle left border for visual emphasis
+    // Adds a subtle indent for visual emphasis
     paddingLeft: "8px",
-    borderLeft: `2px solid ${tokens.colorPaletteRedBorder2}`,
+    // Flexbox layout to align icon and text
+    display: "flex",
+    alignItems: "center",
+    gap: "6px",
   },
 });
 
@@ -36,7 +41,8 @@ const useStyles = makeStyles({
  * and colors instead of warning colors.
  *
  * The main difference from FieldWarning:
- * - Uses error/danger colors (dark orange) instead of warning red
+ * - Uses error/danger colors (red) instead of warning colors
+ * - Displays an X circle icon (from Phosphor Icons) before the message
  * - Intended for validation errors that prevent form submission
  * - FieldWarning is for advisory messages that don't block submission
  *
@@ -50,7 +56,9 @@ export const FieldError: FC<FieldErrorProps> = ({ message }) => {
 
   return (
     <div className={classes.error} role="alert" aria-live="polite">
-      {message}
+      {/* X circle icon from Phosphor Icons to indicate an error */}
+      <XCircleIcon size={18} weight="fill" />
+      <span>{message}</span>
     </div>
   );
 };

@@ -1,3 +1,9 @@
+:root {
+  /* Custom color variables */
+  --color-diablo: #821e17;
+  --color-hot: #e36d33;
+}
+
 html, body {
   height: 100%;
   width: 100%;
