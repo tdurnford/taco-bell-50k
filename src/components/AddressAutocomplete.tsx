@@ -72,6 +72,9 @@ type Props = {
   onAddressSelect: (address: ParsedAddress) => void;
   // Whether the input is disabled (e.g., when registration is closed)
   disabled?: boolean;
+  // ISO country code for Radar API (e.g., "US", "CA", "MX")
+  // Defaults to "US" for backward compatibility
+  countryCode?: string;
 };
 
 /**
@@ -82,6 +85,7 @@ type Props = {
  * 2. Debounces API calls to avoid excessive requests (300ms delay)
  * 3. Auto-fills city, state, and zip when an address is selected
  * 4. Matches the Fluent UI design system used throughout the form
+ * 5. Supports international addresses by passing country code to Radar API
  *
  * The component uses Radar's autocomplete API to fetch address suggestions
  * and displays them in a Fluent UI Menu component for consistency.
@@ -91,6 +95,7 @@ export const AddressAutocomplete: FC<Props> = ({
   onChange,
   onAddressSelect,
   disabled,
+  countryCode = "US",  // Default to US for backward compatibility
 }) => {
   const classes = useStyles();
 
@@ -128,8 +133,9 @@ export const AddressAutocomplete: FC<Props> = ({
 
       try {
         // Call Radar API to get address suggestions
-        // countryCode defaults to "US" in the service
-        const results = await searchAddresses(searchQuery);
+        // Pass the countryCode prop to filter results by country
+        // If countryCode is undefined (e.g., "Other" country), the service defaults to "US"
+        const results = await searchAddresses(searchQuery, countryCode);
 
         // Update suggestions and open menu if we got results
         setSuggestions(results);
@@ -146,7 +152,8 @@ export const AddressAutocomplete: FC<Props> = ({
         setLoading(false);
       }
     },
-    300 // 300ms debounce delay
+    300, // 300ms debounce delay
+    { maxWait: 1000 } // Maximum wait time to ensure eventual execution
   );
 
   /**

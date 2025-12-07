@@ -88,6 +88,232 @@ const US_STATES = [
   { key: "VI", text: "U.S. Virgin Islands" },
 ];
 
+// List of supported countries for international address entry
+// Uses ISO 3166-1 alpha-2 country codes supported by Radar API
+// United States is first, remaining countries are alphabetically ordered, "Other" is last
+const COUNTRIES = [
+  { key: "US", text: "United States" },
+  { key: "AF", text: "Afghanistan" },
+  { key: "AL", text: "Albania" },
+  { key: "DZ", text: "Algeria" },
+  { key: "AS", text: "American Samoa" },
+  { key: "AD", text: "Andorra" },
+  { key: "AO", text: "Angola" },
+  { key: "AQ", text: "Antarctica" },
+  { key: "AG", text: "Antigua and Barbuda" },
+  { key: "AR", text: "Argentina" },
+  { key: "AM", text: "Armenia" },
+  { key: "AW", text: "Aruba" },
+  { key: "AU", text: "Australia" },
+  { key: "CC", text: "Australian Indian Ocean Territories" },
+  { key: "AT", text: "Austria" },
+  { key: "AZ", text: "Azerbaijan" },
+  { key: "BH", text: "Bahrain" },
+  { key: "BD", text: "Bangladesh" },
+  { key: "BB", text: "Barbados" },
+  { key: "BY", text: "Belarus" },
+  { key: "BE", text: "Belgium" },
+  { key: "BZ", text: "Belize" },
+  { key: "BJ", text: "Benin" },
+  { key: "BT", text: "Bhutan" },
+  { key: "BO", text: "Bolivia" },
+  { key: "BA", text: "Bosnia and Herzegovina" },
+  { key: "BW", text: "Botswana" },
+  { key: "BR", text: "Brazil" },
+  { key: "BN", text: "Brunei" },
+  { key: "BG", text: "Bulgaria" },
+  { key: "BF", text: "Burkina Faso" },
+  { key: "BI", text: "Burundi" },
+  { key: "KH", text: "Cambodia" },
+  { key: "CM", text: "Cameroon" },
+  { key: "CA", text: "Canada" },
+  { key: "CV", text: "Cape Verde" },
+  { key: "CF", text: "Central African Republic" },
+  { key: "TD", text: "Chad" },
+  { key: "CL", text: "Chile" },
+  { key: "CN", text: "China" },
+  { key: "CO", text: "Colombia" },
+  { key: "KM", text: "Comoros" },
+  { key: "CR", text: "Costa Rica" },
+  { key: "HR", text: "Croatia" },
+  { key: "CU", text: "Cuba" },
+  { key: "CW", text: "Curacao" },
+  { key: "CY", text: "Cyprus" },
+  { key: "CZ", text: "Czech Republic" },
+  { key: "CD", text: "Democratic Republic of the Congo" },
+  { key: "DK", text: "Denmark" },
+  { key: "DJ", text: "Djibouti" },
+  { key: "DM", text: "Dominica" },
+  { key: "DO", text: "Dominican Republic" },
+  { key: "TL", text: "East Timor" },
+  { key: "EC", text: "Ecuador" },
+  { key: "EG", text: "Egypt" },
+  { key: "SV", text: "El Salvador" },
+  { key: "GQ", text: "Equatorial Guinea" },
+  { key: "ER", text: "Eritrea" },
+  { key: "SZ", text: "Eswatini" },
+  { key: "EE", text: "Estonia" },
+  { key: "ET", text: "Ethiopia" },
+  { key: "FM", text: "Federated States of Micronesia" },
+  { key: "FJ", text: "Fiji" },
+  { key: "FI", text: "Finland" },
+  { key: "FR", text: "France" },
+  { key: "GA", text: "Gabon" },
+  { key: "GM", text: "Gambia" },
+  { key: "GE", text: "Georgia" },
+  { key: "DE", text: "Germany" },
+  { key: "GH", text: "Ghana" },
+  { key: "GR", text: "Greece" },
+  { key: "GL", text: "Greenland" },
+  { key: "GD", text: "Grenada" },
+  { key: "GU", text: "Guam" },
+  { key: "GT", text: "Guatemala" },
+  { key: "GG", text: "Guernsey" },
+  { key: "GN", text: "Guinea" },
+  { key: "GW", text: "Guinea Bissau" },
+  { key: "GY", text: "Guyana" },
+  { key: "HT", text: "Haiti" },
+  { key: "HN", text: "Honduras" },
+  { key: "HK", text: "Hong Kong" },
+  { key: "HU", text: "Hungary" },
+  { key: "IS", text: "Iceland" },
+  { key: "IN", text: "India" },
+  { key: "ID", text: "Indonesia" },
+  { key: "IR", text: "Iran" },
+  { key: "IQ", text: "Iraq" },
+  { key: "IE", text: "Ireland" },
+  { key: "IM", text: "Isle of Man" },
+  { key: "IL", text: "Israel" },
+  { key: "IT", text: "Italy" },
+  { key: "CI", text: "Ivory Coast" },
+  { key: "JM", text: "Jamaica" },
+  { key: "JP", text: "Japan" },
+  { key: "JE", text: "Jersey" },
+  { key: "JO", text: "Jordan" },
+  { key: "KZ", text: "Kazakhstan" },
+  { key: "KE", text: "Kenya" },
+  { key: "KI", text: "Kiribati" },
+  { key: "XK", text: "Kosovo" },
+  { key: "KW", text: "Kuwait" },
+  { key: "KG", text: "Kyrgyzstan" },
+  { key: "LA", text: "Laos" },
+  { key: "LV", text: "Latvia" },
+  { key: "LB", text: "Lebanon" },
+  { key: "LS", text: "Lesotho" },
+  { key: "LR", text: "Liberia" },
+  { key: "LY", text: "Libya" },
+  { key: "LI", text: "Liechtenstein" },
+  { key: "LT", text: "Lithuania" },
+  { key: "LU", text: "Luxembourg" },
+  { key: "MO", text: "Macau" },
+  { key: "MK", text: "Macedonia" },
+  { key: "MG", text: "Madagascar" },
+  { key: "MW", text: "Malawi" },
+  { key: "MY", text: "Malaysia" },
+  { key: "MV", text: "Maldives" },
+  { key: "ML", text: "Mali" },
+  { key: "MT", text: "Malta" },
+  { key: "MH", text: "Marshall Islands" },
+  { key: "MR", text: "Mauritania" },
+  { key: "MU", text: "Mauritius" },
+  { key: "MX", text: "Mexico" },
+  { key: "MD", text: "Moldova" },
+  { key: "MC", text: "Monaco" },
+  { key: "MN", text: "Mongolia" },
+  { key: "ME", text: "Montenegro" },
+  { key: "MA", text: "Morocco" },
+  { key: "MZ", text: "Mozambique" },
+  { key: "MM", text: "Myanmar" },
+  { key: "NA", text: "Namibia" },
+  { key: "NR", text: "Nauru" },
+  { key: "NP", text: "Nepal" },
+  { key: "NL", text: "Netherlands" },
+  { key: "AN", text: "Netherlands Antilles" },
+  { key: "NZ", text: "New Zealand" },
+  { key: "NI", text: "Nicaragua" },
+  { key: "NE", text: "Niger" },
+  { key: "NG", text: "Nigeria" },
+  { key: "KP", text: "North Korea" },
+  { key: "MP", text: "Northern Mariana Islands" },
+  { key: "NO", text: "Norway" },
+  { key: "XN", text: "Null Island" },
+  { key: "OM", text: "Oman" },
+  { key: "PK", text: "Pakistan" },
+  { key: "PW", text: "Palau" },
+  { key: "PS", text: "Palestine" },
+  { key: "PA", text: "Panama" },
+  { key: "PG", text: "Papua New Guinea" },
+  { key: "PY", text: "Paraguay" },
+  { key: "PE", text: "Peru" },
+  { key: "PH", text: "Philippines" },
+  { key: "PL", text: "Poland" },
+  { key: "PT", text: "Portugal" },
+  { key: "PR", text: "Puerto Rico" },
+  { key: "QA", text: "Qatar" },
+  { key: "CG", text: "Republic of Congo" },
+  { key: "RO", text: "Romania" },
+  { key: "RU", text: "Russia" },
+  { key: "RW", text: "Rwanda" },
+  { key: "PM", text: "Saint Pierre and Miquelon" },
+  { key: "WS", text: "Samoa" },
+  { key: "SM", text: "San Marino" },
+  { key: "ST", text: "Sao Tome and Principe" },
+  { key: "SA", text: "Saudi Arabia" },
+  { key: "SN", text: "Senegal" },
+  { key: "RS", text: "Serbia" },
+  { key: "SC", text: "Seychelles" },
+  { key: "SL", text: "Sierra Leone" },
+  { key: "SG", text: "Singapore" },
+  { key: "SX", text: "Sint Maarten" },
+  { key: "SK", text: "Slovakia" },
+  { key: "SI", text: "Slovenia" },
+  { key: "SB", text: "Solomon Islands" },
+  { key: "SO", text: "Somalia" },
+  { key: "XS", text: "Somaliland" },
+  { key: "ZA", text: "South Africa" },
+  { key: "KR", text: "South Korea" },
+  { key: "SS", text: "South Sudan" },
+  { key: "ES", text: "Spain" },
+  { key: "LK", text: "Sri Lanka" },
+  { key: "KN", text: "Saint Kitts and Nevis" },
+  { key: "LC", text: "Saint Lucia" },
+  { key: "VC", text: "Saint Vincent and the Grenadines" },
+  { key: "SD", text: "Sudan" },
+  { key: "SR", text: "Suriname" },
+  { key: "SE", text: "Sweden" },
+  { key: "CH", text: "Switzerland" },
+  { key: "SY", text: "Syria" },
+  { key: "TW", text: "Taiwan" },
+  { key: "TJ", text: "Tajikistan" },
+  { key: "TZ", text: "Tanzania" },
+  { key: "TH", text: "Thailand" },
+  { key: "BS", text: "The Bahamas" },
+  { key: "TG", text: "Togo" },
+  { key: "TO", text: "Tonga" },
+  { key: "TT", text: "Trinidad and Tobago" },
+  { key: "TN", text: "Tunisia" },
+  { key: "TR", text: "Turkey" },
+  { key: "TM", text: "Turkmenistan" },
+  { key: "TV", text: "Tuvalu" },
+  { key: "UG", text: "Uganda" },
+  { key: "UA", text: "Ukraine" },
+  { key: "AE", text: "United Arab Emirates" },
+  { key: "GB", text: "United Kingdom" },
+  { key: "UN", text: "United Nations" },
+  { key: "UY", text: "Uruguay" },
+  { key: "VI", text: "U.S. Virgin Islands" },
+  { key: "UZ", text: "Uzbekistan" },
+  { key: "VU", text: "Vanuatu" },
+  { key: "VA", text: "Vatican" },
+  { key: "VE", text: "Venezuela" },
+  { key: "VN", text: "Vietnam" },
+  { key: "EH", text: "Western Sahara" },
+  { key: "YE", text: "Yemen" },
+  { key: "ZM", text: "Zambia" },
+  { key: "ZW", text: "Zimbabwe" },
+  { key: "OTHER", text: "Other" },
+];
+
 const useStyles = makeStyles({
   registrationForm: {
     marginBottom: "12px",
@@ -158,9 +384,10 @@ type FormData = {
   bibNumber: string;
   bibName: string;
   email: string;
+  country: string;        // ISO country code (e.g., "US", "CA", "MX")
   address: string;
   city: string;
-  state: string;
+  state: string;          // State code for US (e.g., "CA"), free text for other countries
   zipCode: string;
   emergencyContact: string;
   phoneNumber: string;
@@ -183,6 +410,7 @@ export const RegistrationForm: FC<Props> = ({ disabled, formspreeEndpoint }) => 
     bibNumber: "",
     bibName: "",
     email: "",
+    country: "US",           // Default to United States
     address: "",
     city: "",
     state: "",
@@ -250,6 +478,7 @@ export const RegistrationForm: FC<Props> = ({ disabled, formspreeEndpoint }) => 
         bibNumber: "",
         bibName: "",
         email: "",
+        country: "US",           // Reset to United States default
         address: "",
         city: "",
         state: "",
@@ -460,6 +689,27 @@ export const RegistrationForm: FC<Props> = ({ disabled, formspreeEndpoint }) => 
     []
   );
 
+  /**
+   * Handler for country dropdown selection
+   *
+   * When the user changes countries:
+   * 1. Updates the country field in form data
+   * 2. Clears the state field to avoid invalid state codes
+   *    (e.g., if switching from US "CA" state to Canada country)
+   */
+  const handleCountryChange = useCallback<
+    NonNullable<DropdownProps["onOptionSelect"]>
+  >((_, data) => {
+    setFormData((currentData) =>
+      produce(currentData, (draft) => {
+        draft.country = data.optionValue ?? "US";
+        // Clear state when switching countries to avoid confusion
+        // e.g., "CA" in US (California) vs "CA" as country code (Canada)
+        draft.state = "";
+      })
+    );
+  }, []);
+
   const handlePhoneNumberChange = useCallback<
     NonNullable<InputProps["onChange"]>
   >((_, { value }) => {
@@ -530,15 +780,21 @@ export const RegistrationForm: FC<Props> = ({ disabled, formspreeEndpoint }) => 
     );
   }, []);
 
-  // Handler for state dropdown selection
-  // Uses DropdownProps onChange signature which provides selectedOptions array
+  /**
+   * Handler for state field changes
+   * Supports both dropdown selection (US) and text input (other countries)
+   *
+   * This handler needs to work with two different input types:
+   * - Dropdown: provides data.optionValue (US state selection)
+   * - Input: provides data.value (free-form text for international)
+   */
   const handleStateChange = useCallback<
-    NonNullable<DropdownProps["onOptionSelect"]>
+    NonNullable<DropdownProps["onOptionSelect"]> & NonNullable<InputProps["onChange"]>
   >((_, data) => {
     setFormData((currentData) =>
       produce(currentData, (draft) => {
-        // Extract the selected state value from the dropdown data
-        draft.state = data.optionValue ?? "";
+        // Extract value from either dropdown (optionValue) or input (value)
+        draft.state = (data as any).optionValue ?? (data as any).value ?? "";
       })
     );
   }, []);
@@ -596,11 +852,29 @@ export const RegistrationForm: FC<Props> = ({ disabled, formspreeEndpoint }) => 
             onChange={handleLastNameChange}
           />
         </Field>
+        <Field required label="Country">
+          <Dropdown
+            disabled={disabled}
+            placeholder="Select a country"
+            value={COUNTRIES.find((c) => c.key === formData.country)?.text ?? formData.country}
+            selectedOptions={formData.country ? [formData.country] : []}
+            onOptionSelect={handleCountryChange}
+            className={classes.stateDropdown}
+            positioning="below-start"
+          >
+            {COUNTRIES.map((country) => (
+              <Option key={country.key} value={country.key}>
+                {country.text}
+              </Option>
+            ))}
+          </Dropdown>
+        </Field>
         <AddressAutocomplete
           value={formData.address}
           onChange={handleAddressChange}
           onAddressSelect={handleAddressSelect}
           disabled={disabled}
+          countryCode={formData.country === "OTHER" ? undefined : formData.country}
         />
         {/* Grid layout for city, state, and zip - side by side on desktop, stacked on mobile */}
         <div className={classes.cityStateZipGrid}>
@@ -611,25 +885,34 @@ export const RegistrationForm: FC<Props> = ({ disabled, formspreeEndpoint }) => 
               onChange={handleCityChange}
             />
           </Field>
-          <Field required label="State">
-            <Dropdown
-              disabled={disabled}
-              placeholder="Select a state"
-              value={US_STATES.find((s) => s.key === formData.state)?.text ?? formData.state}
-              selectedOptions={formData.state ? [formData.state] : []}
-              onOptionSelect={handleStateChange}
-              className={classes.stateDropdown}
-              positioning="below-start"
-              listbox={{ className: classes.stateDropdownListbox }}
-            >
-              {US_STATES.map((state) => (
-                <Option key={state.key} value={state.key}>
-                  {state.text}
-                </Option>
-              ))}
-            </Dropdown>
+          <Field required label="State/Province">
+            {formData.country === "US" ? (
+              <Dropdown
+                disabled={disabled}
+                placeholder="Select a state"
+                value={US_STATES.find((s) => s.key === formData.state)?.text ?? formData.state}
+                selectedOptions={formData.state ? [formData.state] : []}
+                onOptionSelect={handleStateChange}
+                className={classes.stateDropdown}
+                positioning="below-start"
+                listbox={{ className: classes.stateDropdownListbox }}
+              >
+                {US_STATES.map((state) => (
+                  <Option key={state.key} value={state.key}>
+                    {state.text}
+                  </Option>
+                ))}
+              </Dropdown>
+            ) : (
+              <Input
+                disabled={disabled}
+                value={formData.state}
+                onChange={handleStateChange}
+                placeholder="Enter state/province"
+              />
+            )}
           </Field>
-          <Field required label="Zip Code">
+          <Field required label={formData.country === "US" ? "Zip Code" : "Postal Code"}>
             <Input
               disabled={disabled}
               value={formData.zipCode}
