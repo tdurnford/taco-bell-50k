@@ -12,36 +12,48 @@ import achillesLogo from '../images/achilles-logo.png';
 import { useNavigate } from "react-router-dom";
 
 // "Hero" banner with desert taco image
-import HeroImage from "../images/hero-banner.png";
+import HeroImage from "../images/tb50k-banner.png";
 
 // CSS styles for component
 const useStyles = makeStyles({
   // Styles for desert taco image
   heroBanner: {
     backgroundImage: `url(${HeroImage})`,
-    backgroundSize: "cover",
+    backgroundSize: "auto",
     backgroundPositionX: "center",
     backgroundPositionY: "center",
     height: "300px",
     display: "flex",
     flexDirection: "column",
-    justifyContent: "center",
+    justifyContent: "flex-start",
     alignItems: "center",
     color: "white",
     textAlign: "center",
     ...shorthands.padding("20px"),
 
     "@media screen and (max-width: 600px)": {
-      backgroundPositionX: "calc(100% + 100px)",
+      backgroundPositionX: "calc(100% + 600px)",
+    },
+  },
+  textContainer: {
+    backgroundColor: "rgba(116, 38, 133, 0.6)",
+    backdropFilter: "blur(8px)",
+    WebkitBackdropFilter: "blur(8px)",
+    display: "flex",
+    flexDirection: "column",
+    marginTop: "175px",
+    alignItems: "center",
+    width: "max-content",
+    maxWidth: "40vw",
+    ...shorthands.padding("10px", "40px"),
+    ...shorthands.borderRadius("8px"),
+    "@media screen and (max-width: 600px)": {
+      ...shorthands.padding("8px", "40px"),
     },
     "& h1": {
       fontSize: "40px",
       fontWeight: "bold",
       lineHeight: "1.2",
-      ...shorthands.margin("20px"),
-    },
-    "& p": {
-      fontSize: "20px",
       ...shorthands.margin("0"),
     },
   },
@@ -88,7 +100,9 @@ const Confirmation = () => {
   return (
     <FluentProvider theme={lightTheme}>
       <div className={classes.heroBanner}>
-        <h1>Registration Confirmed!</h1>
+        <div className={classes.textContainer}>
+          <h1>Registration Confirmed!</h1>
+        </div>
       </div>
       <div className={classes.content}>
         <h2>You're in! Thanks for registering.</h2>
