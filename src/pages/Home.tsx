@@ -34,6 +34,15 @@ const useStyles = makeStyles({
     margin: "48px auto 8px auto",
     display: "block",
   },
+  volunteerSection: {
+    marginTop: "32px",
+  },
+  volunteerButton: {
+    fontSize: "1.25rem",
+    padding: "12px 72px",
+    margin: "12px auto 8px auto",
+    display: "block",
+  },
 });
 
 function Home() {
@@ -68,6 +77,18 @@ function Home() {
           >
             Register for 2026
           </Button>
+          <div className={classes.volunteerSection}>
+            <h2>Volunteer with us</h2>
+            <p>Be part of the legend. We need volunteers to have a fun and safe event!</p>
+            <Button
+              appearance="primary"
+              className={classes.volunteerButton}
+              onClick={() => window.open("https://docs.google.com/forms/d/e/1FAIpQLSf-T24qWcgXRkFi0qwmMb7IAPPgpuPUpnb-UIVvPaDQFt3XcA/viewform", "_blank")}
+            >
+              Volunteer for 2026
+            </Button>
+
+          </div>
           <Donate />
         </div>
       </div>
