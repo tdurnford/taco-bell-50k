@@ -79,7 +79,7 @@ function Home() {
           </Button>
           <div className={classes.volunteerSection}>
             <h2>Volunteer with us</h2>
-            <p>Be part of the legend. We need volunteers to have a fun and safe event!</p>
+            <p>Looking for a way to help? Our volunteers are crucial for a safe and fun day for everyone. Volunteer tasks include start line, finish line, posts at Taco Bells around the city, bike sweeper crew, and more! Sign up here to join the team!</p>
             <Button
               appearance="primary"
               className={classes.volunteerButton}
