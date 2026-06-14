@@ -9,6 +9,15 @@ const useStyles = makeStyles({
     maxWidth: "300px",
     height: "500px",
     display: "block",
+    "@media (max-width: 800px) and (min-width: 651px)": {
+      height: "450px",
+    },
+    "@media (max-width: 650px) and (min-width: 381px)": {
+      height: "400px",
+    },
+    "@media (max-width: 380px)": {
+      height: "450px",
+    },
   },
 });
 
@@ -60,15 +69,15 @@ export const RaceDetails = () => {
           <div
             className="strava-embed-placeholder"
             data-embed-type="route"
-            data-embed-id="3141754116069360858"
+            data-embed-id="3495235925911606222"
             data-full-width="true"
             data-hide-elevation="true"
           ></div>
           <script src="https://strava-embeds.com/embed.js"></script>
           <iframe
-            title="TB50k2023 | 31.5 mi Running Route on Strava"
+            title="2026 - TB50K The Loco Strikes Back"
             className={classes.iframe}
-            src="https://strava-embeds.com/route/3141754116069360858?fullWidth=true&hideElevation=true#ns=c94bd402-be4b-472d-b08b-f30264d430cb&hostOrigin=https%3A%2F%2Fwww.strava.com&hostPath=%2Froutes%2F3141754116069360858&hostTitle=TB50k2023+%7C+31.5+mi+Running+Route+on+Strava"
+            src="https://strava-embeds.com/route/3495235925911606222?fullWidth=true&hideElevation=true#hostOrigin=https%3A%2F%2Fwww.strava.com&hostPath=%2Froutes%2F3495235925911606222&hostTitle=2026+-+TB50K+The+Loco+Strikes+Back+%7C+Running+Route+on+Strava"
           ></iframe>
         </div>
       </div>
